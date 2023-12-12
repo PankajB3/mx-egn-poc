@@ -2,6 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { useState } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 function App() {
 
@@ -9,6 +10,13 @@ function App() {
     const [fileName, setFileName] = useState("")
     const [submitBtnDisabled, setSubmitBtnDisable] = useState(true)
     const [feebackBtn, setFeedbackBtn] = useState(false)
+    const [redirectToFeedback, setRedirectToFeedback] = useState(false)
+    const navigate = useNavigate()
+
+    // @ts-ignore
+    const setMyRedirect = async() => {    
+        navigate('/feedback', {state:emlData})
+    }
 
  //@ts-ignore
     const saveEmlDataToDB = async() =>{
@@ -32,7 +40,7 @@ function App() {
         }
     }
 
-     //@ts-ignore
+//@ts-ignore
   const submitHandler = () => {
     setSubmitBtnDisable(true)
     console.log("36");
@@ -77,7 +85,7 @@ function App() {
          console.log("data", data)
          // Extract the JSON string from the message
          var jsonString = data && data.message && data.message[0]
-         ? data.message.replace(/^```json/, '').replace(/```$/, '')
+         ? data.message
          : null;
          console.log("jsonString ==",jsonString)
 
@@ -141,7 +149,7 @@ function App() {
                     <button className="flex items-center justify-center bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-6 rounded" onClick={saveEmlDataToDB}>
                         <span>Yes</span>
                     </button>
-                    <button className="flex items-center justify-center bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-6 rounded">
+                    <button className="flex items-center justify-center bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-6 rounded" onClick={setMyRedirect}>
                         <span>No</span>
                     </button>
                 </div>
