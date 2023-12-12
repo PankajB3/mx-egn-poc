@@ -1,38 +1,15 @@
 from email.parser import BytesParser
 from email import policy
+from dotenv import load_dotenv
 import os
+from openai import OpenAI
+import json
 
-# def store_as_text_file(eml_file_path):
-#     # Load the EML file
-#         with open(eml_file_path, 'rb') as file:
-#             msg = BytesParser(policy=policy.default).parse(file)
+load_dotenv()
 
-#         # Extract information from the parsed message
-#         subject = msg['subject']
-#         from_address = msg['from']
-#         to_address = msg['to']
-#         date = msg['date']
-
-#         # Extract the email body
-#         if msg.is_multipart():
-#             for part in msg.iter_parts():
-#                 if part.get_content_type() == 'text/plain':
-#                     body = part.get_payload(decode=True).decode('utf-8')
-#         else:
-#             body = msg.get_payload(decode=True).decode('utf-8')
-
-#         # Save the email content to a text file
-#         text_file_path = os.path.join('uploads', 'output_email.json')
-#         with open(text_file_path, 'w', encoding='utf-8') as output_file:
-#             output_file.write(f'Subject: {subject}\n')
-#             output_file.write(f'From: {from_address}\n')
-#             output_file.write(f'To: {to_address}\n')
-#             output_file.write(f'Date: {date}\n\n')
-#             output_file.write(body)
-
-#         os.remove(eml_file_path)
-
-
+client = OpenAI(
+    api_key=os.getenv("OPENAI_API_KEY")
+)
 # USE THIS
 def store_as_text_file(eml_file_path):
     try:
@@ -68,6 +45,52 @@ def store_as_text_file(eml_file_path):
         os.remove(eml_file_path)
     except Exception as e:
         raise e
+
+
+def correct_json(json_file_path):
+    with open(json_file_path, 'r') as file:
+        data = json.load(file)
+    response = client.chat.completions.create(
+        model="gpt-3.5-turbo-1106",
+        response_format={ "type": "json_object" },
+        messages=[
+                {"role": "system", "content": "You are a helpful assistant. You need to make data provided by user into a valid json"},
+                {"role" :"user", "content" : f''' Data is {data} '''}
+            ]
+    ) 
+    # Write corrected text back to the JSON file
+    with open(json_file_path, 'w') as file:
+        file.write(response.choices[0].message.content)
+
+def extract_first_message(json_file_path):
+    try:
+        with open(json_file_path, 'r') as file:
+            data = json.load(file)
+            messages = data.get("Messages", [])
+
+            if messages:
+                first_message = messages[0]
+                subject = first_message.get("Subject", "")
+                blurb = first_message.get("Blurb", "")
+
+                output_text = f"{subject} {blurb}"
+
+                with open("uploads/output_json.txt", 'w') as output_file:
+                    output_file.write(output_text)
+
+                print("First message extracted and stored in output_json.txt.")
+            else:
+                with open("uploads/output_json.txt", 'w') as output_file:
+                    output_file.write("This File Didn't Had Messages")
+        os.remove(json_file_path)
+    except FileNotFoundError:
+        raise FileNotFoundError("File Not Found")
+    except json.JSONDecodeError as je:
+        raise je
+    except Exception as e:
+        raise e
+
+
 
 def create_or_open_text_file():
     try:

@@ -34,7 +34,7 @@ collection = db.get_collection("emlData")  #  your collection name
 
 os.makedirs('uploads', exist_ok=True)
 
-@app.route('/upload_example_output', methods=['POST'])
+@app.route('/api/upload_example_output', methods=['POST'])
 def upload_example_file():
     try:
         # Check if the POST request has a file part
@@ -59,7 +59,7 @@ def upload_example_file():
         print(e)
         return jsonify({'error': str(e)}), 500
 
-@app.route('/upload_knowledge_base', methods=['POST'])
+@app.route('/api/upload_knowledge_base', methods=['POST'])
 def upload_knowledge_base():
     try:
         # Check if the POST request has a file part
@@ -85,7 +85,7 @@ def upload_knowledge_base():
         return jsonify({'error': str(e)}), 500
 
 # Define a route to handle JSON object uploads to MongoDB
-@app.route('/store_json', methods=['POST'])
+@app.route('/api/store_json', methods=['POST'])
 def store_json_in_mongo():
     try:
         # Get JSON object from request body
@@ -106,7 +106,7 @@ def store_json_in_mongo():
 
 
 # Define a route to handle file uploads
-@app.route('/upload_eml', methods=['POST'])
+@app.route('/api/upload_eml', methods=['POST'])
 def upload_eml():
     try:
         # Check if the file is included in the request
@@ -116,17 +116,22 @@ def upload_eml():
         file = request.files['file']
 
         # Check if the file has the correct extension
-        if not file.filename.endswith('.eml'):
+        if not file.filename.endswith('.json'):
             return jsonify({'error': 'Invalid file format. Please upload a .json file'}), 400
 
         # Save the uploaded file to a local folder
-        eml_file_path = os.path.join('uploads', file.filename)
-        file.save(eml_file_path)
-        # os.rename(json_file_path, "uploads/output_email.json") # renaming file so that we can have a consistent name
+        file_path = os.path.join('uploads', file.filename)
+        file.save(file_path)
+        os.rename(file_path, "uploads/output_email.json") # renaming file so that we can have a consistent name
+
+        json_file_path = "uploads/output_email.json"
 
         # upload_knowledge_base_file()
-        store_as_text_file(eml_file_path)
-        # json_to_text(json_file_path)
+        # store_as_text_file(eml_file_path)
+
+        correct_json(json_file_path)
+
+        extract_first_message(json_file_path)
 
         (data_file, conv_file, ex_output_file, feedback_file) = upload_file_openai()
 
@@ -140,12 +145,13 @@ def upload_eml():
         if messages:
             # If messages list is not empty, access the first element
             response_message = messages[0].replace("\n", "").replace("\ ", "")
+            
             return jsonify({'message': response_message}), 200
         else:
             # If messages list is empty, provide a default message or handle it accordingly
             return jsonify({'message': 'No messages available'}), 200
-
-    
+    except json.JSONDecodeError as je:
+        return jsonify({'error' : "Invalid JSON format"})
     except FileNotFoundError as fe:
         return jsonify({'error': f'File not found: {fe}'}), 404
 
@@ -155,7 +161,7 @@ def upload_eml():
 
 
 # Define a route to handle feedback given by the user
-@app.route('/feedback', methods=['POST'])
+@app.route('/api/feedback', methods=['POST'])
 def upload_feedback():
     try:
         feedback_data = request.form.get('feedback')
@@ -168,11 +174,11 @@ def upload_feedback():
     
 
 # Define a route to display a simple form for file upload
-@app.route('/')
+@app.route('/api')
 def index():
     return jsonify({'message': "Server Running"}), 200
 
 create_or_open_text_file()
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run("0.0.0.0", port=os.getenv('PORT'))

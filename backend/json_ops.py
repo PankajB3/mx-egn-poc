@@ -71,7 +71,7 @@ def upload_file_openai():
     try:
         if(os.path.exists("uploads/knowledge_base.txt") and 
         os.path.exists("uploads/example_output_data.txt") and 
-        os.path.exists("uploads/output_email.txt") and 
+        os.path.exists("uploads/output_json.txt") and 
         os.path.exists("uploads/feedback_data.txt")):
             
             # Upload a file with an "assistants" purpose
@@ -86,7 +86,7 @@ def upload_file_openai():
             )   
             # Upload a eml file with an "assistants" purpose
             eml_file = client.files.create(
-            file=open("uploads/output_email.txt", "rb"),
+            file=open("uploads/output_json.txt", "rb"),
             purpose='assistants'
             )
             # Upload a file with an "assistants" purpose

@@ -61,7 +61,7 @@ def assistant_works(eml_file, data_file, ex_file, fdb_file, thread):
           Important Instruction 6 : No contact details should be mentioned in the JSON response.
           Important Instruction 7 : You need to learn from feedback base given in {fdb_file.id}.
           ''',
-          model="gpt-4-1106-preview",
+          model="gpt-4-1106-preview",x
           tools=[{
               "type": "retrieval",
           }],
@@ -75,7 +75,7 @@ def assistant_works(eml_file, data_file, ex_file, fdb_file, thread):
           
             Your Task : You need to analyze {eml_file.id} to retrieve all the information.
             
-            If you detect in the conversations multiple values are being quoted for a single key, club them together under the relevant key. 
+            If you detect in the conversations multiple values are being quoted for a single key, club them together under the relevant key in form of a list. 
 
             You are provided with the user email {eml_file.id}. Understand the {eml_file.id}, use your knowledge base {data_file.id} & example base {ex_file.id} to provide with a clean JSON output
             which clearly represents user quotes in form of JSON object.
@@ -129,7 +129,7 @@ def start_assistant(eml_file, data_file, ex_file, fdb_file):
     for message in reversed(messages.data):
         if message.role == 'assistant':
           assistant_answer.append(message.content[0].text.value)
-        print(message.role + " => " + message.content[0].text.value)
+        # print(message.role + " => " + message.content[0].text.value)
     return assistant_answer
   except Exception as e:
      raise e
