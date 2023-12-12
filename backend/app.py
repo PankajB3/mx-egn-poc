@@ -145,8 +145,10 @@ def upload_eml():
         if messages:
             # If messages list is not empty, access the first element
             response_message = messages[0].replace("\n", "").replace("\ ", "")
+
+            ai_response = improve_josn_response(response_message)
             
-            return jsonify({'message': response_message}), 200
+            return jsonify({'message': ai_response}), 200
         else:
             # If messages list is empty, provide a default message or handle it accordingly
             return jsonify({'message': 'No messages available'}), 200
@@ -164,10 +166,24 @@ def upload_eml():
 @app.route('/api/feedback', methods=['POST'])
 def upload_feedback():
     try:
-        feedback_data = request.form.get('feedback')
-        print(feedback_data)
-        with open('uploads/feedback_data.txt', 'a') as file:
-            file.write("\n"+json.dumps(feedback_data)+"\n")
+        # Get form data
+        data = request.get_json()
+        json_data = data.get('jsonData')
+        feedback_data = data.get('feedbackText')
+
+        feedback_file_path = 'uploads/feedback_data.txt'
+        feedback_string = f''' The JSON data provided by you is {json_data} & related feedback given by user is {feedback_data}. '''
+
+        # Validate data
+        if not json_data or not feedback_data:
+            return jsonify({'error': 'Invalid data. Both jsonData and feedbackText are required.'}), 400
+        
+        if not os.path.exists(feedback_file_path):
+            with open(feedback_file_path, 'w') as file:
+                file.write(feedback_string)
+
+        with open(feedback_file_path, 'a') as file:
+            file.write(feedback_string)
         return jsonify({'message': 'Feedback submitted successfully'}), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 500

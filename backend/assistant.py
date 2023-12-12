@@ -48,7 +48,7 @@ def assistant_works(eml_file, data_file, ex_file, fdb_file, thread):
           
           To help you identify the properties which you need to identify, look at {data} for properties name & try to figure out the fields from the {eml_file.id}.
 
-          On basis of your performance of creating JSON outputs user has provided feedback in {fdb_file.id}. You need to learn from the feedback & apply it's learning & suggestion when you are creating JSON outputs.
+          On basis of your performance of creating JSON outputs user has provided feedback in {fdb_file.id}. You need to learn from the last 5 feedbacks given in the {fdb_file.id} & apply it's learning & suggestion when you are creating JSON outputs.
           
           Follow the following instruction strictly : 
           Important Instruction 1 : You are provided with the file {ex_file.id} use it as an example to train yourself for what your keys should be & what value would be attached to those keys in the 
@@ -61,7 +61,7 @@ def assistant_works(eml_file, data_file, ex_file, fdb_file, thread):
           Important Instruction 6 : No contact details should be mentioned in the JSON response.
           Important Instruction 7 : You need to learn from feedback base given in {fdb_file.id}.
           ''',
-          model="gpt-4-1106-preview",x
+          model="gpt-4-1106-preview",
           tools=[{
               "type": "retrieval",
           }],
