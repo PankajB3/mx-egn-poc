@@ -1,0 +1,482 @@
+
+> my-app@0.1.0 start
+> react-scripts start
+
+Something is already running on port 3000.
+
+> my-app@0.1.0 start
+> react-scripts start
+
+Something is already running on port 3000.
+
+> my-app@0.1.0 start
+> react-scripts start
+
+Something is already running on port 3000.
+
+> my-app@0.1.0 start
+> react-scripts start
+
+(node:413259) [DEP_WEBPACK_DEV_SERVER_ON_AFTER_SETUP_MIDDLEWARE] DeprecationWarning: 'onAfterSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+(node:413259) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+Starting the development server...
+
+Compiled with warnings.
+
+[eslint] 
+src/App.tsx
+  Line 2:8:     'logo' is defined but never used     @typescript-eslint/no-unused-vars
+  Line 85:73:   Expected '===' and instead saw '=='  eqeqeq
+  Line 121:42:  Expected '===' and instead saw '=='  eqeqeq
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+WARNING in [eslint] 
+src/App.tsx
+  Line 2:8:     'logo' is defined but never used     @typescript-eslint/no-unused-vars
+  Line 85:73:   Expected '===' and instead saw '=='  eqeqeq
+  Line 121:42:  Expected '===' and instead saw '=='  eqeqeq
+
+webpack compiled with 1 warning
+No issues found.
+Compiling...
+Compiled with warnings.
+
+[eslint] 
+src/App.tsx
+  Line 2:8:     'logo' is defined but never used     @typescript-eslint/no-unused-vars
+  Line 85:73:   Expected '===' and instead saw '=='  eqeqeq
+  Line 121:42:  Expected '===' and instead saw '=='  eqeqeq
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+WARNING in [eslint] 
+src/App.tsx
+  Line 2:8:     'logo' is defined but never used     @typescript-eslint/no-unused-vars
+  Line 85:73:   Expected '===' and instead saw '=='  eqeqeq
+  Line 121:42:  Expected '===' and instead saw '=='  eqeqeq
+
+webpack compiled with 1 warning
+No issues found.
+[0;33mOne of your dependencies, babel-preset-react-app, is importing the
+"@babel/plugin-proposal-private-property-in-object" package without
+declaring it in its dependencies. This is currently working because
+"@babel/plugin-proposal-private-property-in-object" is already in your
+node_modules folder for unrelated reasons, but it [1mmay break at any time[0;33m.
+
+babel-preset-react-app is part of the create-react-app project, [1mwhich
+is not maintianed anymore[0;33m. It is thus unlikely that this bug will
+ever be fixed. Add "@babel/plugin-proposal-private-property-in-object" to
+your devDependencies to work around this error. This will make this message
+go away.[0m
+  
+Compiling...
+Compiled with warnings.
+
+[eslint] 
+src/App.tsx
+  Line 2:8:     'logo' is defined but never used     @typescript-eslint/no-unused-vars
+  Line 85:73:   Expected '===' and instead saw '=='  eqeqeq
+  Line 121:42:  Expected '===' and instead saw '=='  eqeqeq
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+WARNING in [eslint] 
+src/App.tsx
+  Line 2:8:     'logo' is defined but never used     @typescript-eslint/no-unused-vars
+  Line 85:73:   Expected '===' and instead saw '=='  eqeqeq
+  Line 121:42:  Expected '===' and instead saw '=='  eqeqeq
+
+webpack compiled with 1 warning
+No issues found.
+Compiling...
+Compiled with warnings.
+
+[eslint] 
+src/App.tsx
+  Line 2:8:     'logo' is defined but never used     @typescript-eslint/no-unused-vars
+  Line 85:73:   Expected '===' and instead saw '=='  eqeqeq
+  Line 121:42:  Expected '===' and instead saw '=='  eqeqeq
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+WARNING in [eslint] 
+src/App.tsx
+  Line 2:8:     'logo' is defined but never used     @typescript-eslint/no-unused-vars
+  Line 85:73:   Expected '===' and instead saw '=='  eqeqeq
+  Line 121:42:  Expected '===' and instead saw '=='  eqeqeq
+
+webpack compiled with 1 warning
+ERROR in src/App.tsx:79:27
+TS1345: An expression of type 'void' cannot be tested for truthiness.
+    77 |          console.log("data", data)
+    78 |          // Extract the JSON string from the message
+  > 79 |          var jsonString = data && data.message && data.message[0]
+       |                           ^^^^
+    80 |          ? data.message.replace(/^```json/, '').replace(/```$/, '')
+    81 |          : null;
+    82 |          console.log("jsonString ==",jsonString)
+
+ERROR in src/App.tsx:79:27
+TS1345: An expression of type 'void' cannot be tested for truthiness.
+    77 |          console.log("data", data)
+    78 |          // Extract the JSON string from the message
+  > 79 |          var jsonString = data && data.message && data.message[0]
+       |                           ^^^^^^^^^^^^^^^^^^^^
+    80 |          ? data.message.replace(/^```json/, '').replace(/```$/, '')
+    81 |          : null;
+    82 |          console.log("jsonString ==",jsonString)
+
+ERROR in src/App.tsx:79:27
+TS1345: An expression of type 'void' cannot be tested for truthiness.
+    77 |          console.log("data", data)
+    78 |          // Extract the JSON string from the message
+  > 79 |          var jsonString = data && data.message && data.message[0]
+       |                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    80 |          ? data.message.replace(/^```json/, '').replace(/```$/, '')
+    81 |          : null;
+    82 |          console.log("jsonString ==",jsonString)
+
+ERROR in src/App.tsx:79:40
+TS2339: Property 'message' does not exist on type 'never'.
+    77 |          console.log("data", data)
+    78 |          // Extract the JSON string from the message
+  > 79 |          var jsonString = data && data.message && data.message[0]
+       |                                        ^^^^^^^
+    80 |          ? data.message.replace(/^```json/, '').replace(/```$/, '')
+    81 |          : null;
+    82 |          console.log("jsonString ==",jsonString)
+
+ERROR in src/App.tsx:79:56
+TS2339: Property 'message' does not exist on type 'never'.
+    77 |          console.log("data", data)
+    78 |          // Extract the JSON string from the message
+  > 79 |          var jsonString = data && data.message && data.message[0]
+       |                                                        ^^^^^^^
+    80 |          ? data.message.replace(/^```json/, '').replace(/```$/, '')
+    81 |          : null;
+    82 |          console.log("jsonString ==",jsonString)
+
+ERROR in src/App.tsx:80:17
+TS2339: Property 'message' does not exist on type 'never'.
+    78 |          // Extract the JSON string from the message
+    79 |          var jsonString = data && data.message && data.message[0]
+  > 80 |          ? data.message.replace(/^```json/, '').replace(/```$/, '')
+       |                 ^^^^^^^
+    81 |          : null;
+    82 |          console.log("jsonString ==",jsonString)
+    83 |
+
+Compiling...
+Compiled with warnings.
+
+[eslint] 
+src/App.tsx
+  Line 2:8:     'logo' is defined but never used     @typescript-eslint/no-unused-vars
+  Line 85:73:   Expected '===' and instead saw '=='  eqeqeq
+  Line 121:42:  Expected '===' and instead saw '=='  eqeqeq
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+WARNING in [eslint] 
+src/App.tsx
+  Line 2:8:     'logo' is defined but never used     @typescript-eslint/no-unused-vars
+  Line 85:73:   Expected '===' and instead saw '=='  eqeqeq
+  Line 121:42:  Expected '===' and instead saw '=='  eqeqeq
+
+webpack compiled with 1 warning
+No issues found.
+Compiling...
+Compiled with warnings.
+
+[eslint] 
+src/App.tsx
+  Line 2:8:     'logo' is defined but never used     @typescript-eslint/no-unused-vars
+  Line 85:73:   Expected '===' and instead saw '=='  eqeqeq
+  Line 121:42:  Expected '===' and instead saw '=='  eqeqeq
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+WARNING in [eslint] 
+src/App.tsx
+  Line 2:8:     'logo' is defined but never used     @typescript-eslint/no-unused-vars
+  Line 85:73:   Expected '===' and instead saw '=='  eqeqeq
+  Line 121:42:  Expected '===' and instead saw '=='  eqeqeq
+
+webpack compiled with 1 warning
+No issues found.
+Compiling...
+Compiled with warnings.
+
+[eslint] 
+src/App.tsx
+  Line 2:8:     'logo' is defined but never used     @typescript-eslint/no-unused-vars
+  Line 85:73:   Expected '===' and instead saw '=='  eqeqeq
+  Line 121:42:  Expected '===' and instead saw '=='  eqeqeq
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+WARNING in [eslint] 
+src/App.tsx
+  Line 2:8:     'logo' is defined but never used     @typescript-eslint/no-unused-vars
+  Line 85:73:   Expected '===' and instead saw '=='  eqeqeq
+  Line 121:42:  Expected '===' and instead saw '=='  eqeqeq
+
+webpack compiled with 1 warning
+ERROR in src/App.tsx:79:27
+TS1345: An expression of type 'void' cannot be tested for truthiness.
+    77 |          console.log("data", data)
+    78 |          // Extract the JSON string from the message
+  > 79 |          var jsonString = data && data.message && data.message[0]
+       |                           ^^^^
+    80 |          ? data.message.replace(/^```json/, '').replace(/```$/, '')
+    81 |          : null;
+    82 |          console.log("jsonString ==",jsonString)
+
+ERROR in src/App.tsx:79:27
+TS1345: An expression of type 'void' cannot be tested for truthiness.
+    77 |          console.log("data", data)
+    78 |          // Extract the JSON string from the message
+  > 79 |          var jsonString = data && data.message && data.message[0]
+       |                           ^^^^^^^^^^^^^^^^^^^^
+    80 |          ? data.message.replace(/^```json/, '').replace(/```$/, '')
+    81 |          : null;
+    82 |          console.log("jsonString ==",jsonString)
+
+ERROR in src/App.tsx:79:27
+TS1345: An expression of type 'void' cannot be tested for truthiness.
+    77 |          console.log("data", data)
+    78 |          // Extract the JSON string from the message
+  > 79 |          var jsonString = data && data.message && data.message[0]
+       |                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    80 |          ? data.message.replace(/^```json/, '').replace(/```$/, '')
+    81 |          : null;
+    82 |          console.log("jsonString ==",jsonString)
+
+ERROR in src/App.tsx:79:40
+TS2339: Property 'message' does not exist on type 'never'.
+    77 |          console.log("data", data)
+    78 |          // Extract the JSON string from the message
+  > 79 |          var jsonString = data && data.message && data.message[0]
+       |                                        ^^^^^^^
+    80 |          ? data.message.replace(/^```json/, '').replace(/```$/, '')
+    81 |          : null;
+    82 |          console.log("jsonString ==",jsonString)
+
+ERROR in src/App.tsx:79:56
+TS2339: Property 'message' does not exist on type 'never'.
+    77 |          console.log("data", data)
+    78 |          // Extract the JSON string from the message
+  > 79 |          var jsonString = data && data.message && data.message[0]
+       |                                                        ^^^^^^^
+    80 |          ? data.message.replace(/^```json/, '').replace(/```$/, '')
+    81 |          : null;
+    82 |          console.log("jsonString ==",jsonString)
+
+ERROR in src/App.tsx:80:17
+TS2339: Property 'message' does not exist on type 'never'.
+    78 |          // Extract the JSON string from the message
+    79 |          var jsonString = data && data.message && data.message[0]
+  > 80 |          ? data.message.replace(/^```json/, '').replace(/```$/, '')
+       |                 ^^^^^^^
+    81 |          : null;
+    82 |          console.log("jsonString ==",jsonString)
+    83 |
+
+Compiling...
+Compiled with warnings.
+
+[eslint] 
+src/App.tsx
+  Line 2:8:     'logo' is defined but never used     @typescript-eslint/no-unused-vars
+  Line 85:73:   Expected '===' and instead saw '=='  eqeqeq
+  Line 121:42:  Expected '===' and instead saw '=='  eqeqeq
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+WARNING in [eslint] 
+src/App.tsx
+  Line 2:8:     'logo' is defined but never used     @typescript-eslint/no-unused-vars
+  Line 85:73:   Expected '===' and instead saw '=='  eqeqeq
+  Line 121:42:  Expected '===' and instead saw '=='  eqeqeq
+
+webpack compiled with 1 warning
+No issues found.
+Compiling...
+Compiled with warnings.
+
+[eslint] 
+src/App.tsx
+  Line 2:8:     'logo' is defined but never used     @typescript-eslint/no-unused-vars
+  Line 85:73:   Expected '===' and instead saw '=='  eqeqeq
+  Line 121:42:  Expected '===' and instead saw '=='  eqeqeq
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+WARNING in [eslint] 
+src/App.tsx
+  Line 2:8:     'logo' is defined but never used     @typescript-eslint/no-unused-vars
+  Line 85:73:   Expected '===' and instead saw '=='  eqeqeq
+  Line 121:42:  Expected '===' and instead saw '=='  eqeqeq
+
+webpack compiled with 1 warning
+No issues found.
+Compiling...
+Failed to compile.
+
+[eslint] 
+src/App.tsx
+Syntax error: ',' expected (73:39)
+ERROR in ./src/App.tsx
+Module build failed (from ./node_modules/babel-loader/lib/index.js):
+SyntaxError: /home/pankajbansal/mx-egn-poc/frontend-react/my-app/src/App.tsx: Unexpected token, expected "," (73:39)
+
+  71 |          body: formData,
+  72 |      })
+> 73 |      .then(response => response.json() console.log())
+     |                                        ^
+  74 |      .then(data => {
+  75 |         setSubmitBtnDisable(false)
+  76 |         setFileName("")
+    at constructor (/home/pankajbansal/mx-egn-poc/frontend-react/my-app/node_modules/@babel/parser/lib/index.js:356:19)
+    at TypeScriptParserMixin.raise (/home/pankajbansal/mx-egn-poc/frontend-react/my-app/node_modules/@babel/parser/lib/index.js:3223:19)
+    at TypeScriptParserMixin.unexpected (/home/pankajbansal/mx-egn-poc/frontend-react/my-app/node_modules/@babel/parser/lib/index.js:3253:16)
+    at TypeScriptParserMixin.expect (/home/pankajbansal/mx-egn-poc/frontend-react/my-app/node_modules/@babel/parser/lib/index.js:3585:28)
+    at TypeScriptParserMixin.parseCallExpressionArguments (/home/pankajbansal/mx-egn-poc/frontend-react/my-app/node_modules/@babel/parser/lib/index.js:11040:14)
+    at TypeScriptParserMixin.parseCoverCallAndAsyncArrowHead (/home/pankajbansal/mx-egn-poc/frontend-react/my-app/node_modules/@babel/parser/lib/index.js:10964:29)
+    at TypeScriptParserMixin.parseSubscript (/home/pankajbansal/mx-egn-poc/frontend-react/my-app/node_modules/@babel/parser/lib/index.js:10899:19)
+    at TypeScriptParserMixin.parseSubscript (/home/pankajbansal/mx-egn-poc/frontend-react/my-app/node_modules/@babel/parser/lib/index.js:9167:18)
+    at TypeScriptParserMixin.parseSubscripts (/home/pankajbansal/mx-egn-poc/frontend-react/my-app/node_modules/@babel/parser/lib/index.js:10870:19)
+    at TypeScriptParserMixin.parseExprSubscripts (/home/pankajbansal/mx-egn-poc/frontend-react/my-app/node_modules/@babel/parser/lib/index.js:10861:17)
+    at TypeScriptParserMixin.parseUpdate (/home/pankajbansal/mx-egn-poc/frontend-react/my-app/node_modules/@babel/parser/lib/index.js:10840:21)
+    at TypeScriptParserMixin.parseMaybeUnary (/home/pankajbansal/mx-egn-poc/frontend-react/my-app/node_modules/@babel/parser/lib/index.js:10816:23)
+    at TypeScriptParserMixin.parseMaybeUnary (/home/pankajbansal/mx-egn-poc/frontend-react/my-app/node_modules/@babel/parser/lib/index.js:9696:18)
+    at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (/home/pankajbansal/mx-egn-poc/frontend-react/my-app/node_modules/@babel/parser/lib/index.js:10654:61)
+    at TypeScriptParserMixin.parseExprOps (/home/pankajbansal/mx-egn-poc/frontend-react/my-app/node_modules/@babel/parser/lib/index.js:10659:23)
+    at TypeScriptParserMixin.parseMaybeConditional (/home/pankajbansal/mx-egn-poc/frontend-react/my-app/node_modules/@babel/parser/lib/index.js:10636:23)
+    at TypeScriptParserMixin.parseMaybeAssign (/home/pankajbansal/mx-egn-poc/frontend-react/my-app/node_modules/@babel/parser/lib/index.js:10597:21)
+    at TypeScriptParserMixin.parseMaybeAssign (/home/pankajbansal/mx-egn-poc/frontend-react/my-app/node_modules/@babel/parser/lib/index.js:9643:20)
+    at TypeScriptParserMixin.parseExpressionBase (/home/pankajbansal/mx-egn-poc/frontend-react/my-app/node_modules/@babel/parser/lib/index.js:10551:23)
+    at /home/pankajbansal/mx-egn-poc/frontend-react/my-app/node_modules/@babel/parser/lib/index.js:10547:39
+    at TypeScriptParserMixin.allowInAnd (/home/pankajbansal/mx-egn-poc/frontend-react/my-app/node_modules/@babel/parser/lib/index.js:12279:16)
+    at TypeScriptParserMixin.parseExpression (/home/pankajbansal/mx-egn-poc/frontend-react/my-app/node_modules/@babel/parser/lib/index.js:10547:17)
+    at TypeScriptParserMixin.parseStatementContent (/home/pankajbansal/mx-egn-poc/frontend-react/my-app/node_modules/@babel/parser/lib/index.js:12737:23)
+    at TypeScriptParserMixin.parseStatementContent (/home/pankajbansal/mx-egn-poc/frontend-react/my-app/node_modules/@babel/parser/lib/index.js:9340:18)
+    at TypeScriptParserMixin.parseStatementLike (/home/pankajbansal/mx-egn-poc/frontend-react/my-app/node_modules/@babel/parser/lib/index.js:12588:17)
+    at TypeScriptParserMixin.parseStatementListItem (/home/pankajbansal/mx-egn-poc/frontend-react/my-app/node_modules/@babel/parser/lib/index.js:12568:17)
+    at TypeScriptParserMixin.parseBlockOrModuleBlockBody (/home/pankajbansal/mx-egn-poc/frontend-react/my-app/node_modules/@babel/parser/lib/index.js:13189:61)
+    at TypeScriptParserMixin.parseBlockBody (/home/pankajbansal/mx-egn-poc/frontend-react/my-app/node_modules/@babel/parser/lib/index.js:13182:10)
+    at TypeScriptParserMixin.parseBlock (/home/pankajbansal/mx-egn-poc/frontend-react/my-app/node_modules/@babel/parser/lib/index.js:13170:10)
+    at TypeScriptParserMixin.parseFunctionBody (/home/pankajbansal/mx-egn-poc/frontend-react/my-app/node_modules/@babel/parser/lib/index.js:11935:24)
+    at TypeScriptParserMixin.parseArrowExpression (/home/pankajbansal/mx-egn-poc/frontend-react/my-app/node_modules/@babel/parser/lib/index.js:11910:10)
+    at TypeScriptParserMixin.parseParenAndDistinguishExpression (/home/pankajbansal/mx-egn-poc/frontend-react/my-app/node_modules/@babel/parser/lib/index.js:11511:12)
+    at TypeScriptParserMixin.parseExprAtom (/home/pankajbansal/mx-egn-poc/frontend-react/my-app/node_modules/@babel/parser/lib/index.js:11137:23)
+    at TypeScriptParserMixin.parseExprAtom (/home/pankajbansal/mx-egn-poc/frontend-react/my-app/node_modules/@babel/parser/lib/index.js:6932:20)
+    at TypeScriptParserMixin.parseExprSubscripts (/home/pankajbansal/mx-egn-poc/frontend-react/my-app/node_modules/@babel/parser/lib/index.js:10857:23)
+    at TypeScriptParserMixin.parseUpdate (/home/pankajbansal/mx-egn-poc/frontend-react/my-app/node_modules/@babel/parser/lib/index.js:10840:21)
+    at TypeScriptParserMixin.parseMaybeUnary (/home/pankajbansal/mx-egn-poc/frontend-react/my-app/node_modules/@babel/parser/lib/index.js:10816:23)
+    at TypeScriptParserMixin.parseMaybeUnary (/home/pankajbansal/mx-egn-poc/frontend-react/my-app/node_modules/@babel/parser/lib/index.js:9696:18)
+    at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (/home/pankajbansal/mx-egn-poc/frontend-react/my-app/node_modules/@babel/parser/lib/index.js:10654:61)
+    at TypeScriptParserMixin.parseExprOps (/home/pankajbansal/mx-egn-poc/frontend-react/my-app/node_modules/@babel/parser/lib/index.js:10659:23)
+    at TypeScriptParserMixin.parseMaybeConditional (/home/pankajbansal/mx-egn-poc/frontend-react/my-app/node_modules/@babel/parser/lib/index.js:10636:23)
+    at TypeScriptParserMixin.parseMaybeAssign (/home/pankajbansal/mx-egn-poc/frontend-react/my-app/node_modules/@babel/parser/lib/index.js:10597:21)
+    at TypeScriptParserMixin.parseMaybeAssign (/home/pankajbansal/mx-egn-poc/frontend-react/my-app/node_modules/@babel/parser/lib/index.js:9643:20)
+    at /home/pankajbansal/mx-egn-poc/frontend-react/my-app/node_modules/@babel/parser/lib/index.js:10567:39
+    at TypeScriptParserMixin.allowInAnd (/home/pankajbansal/mx-egn-poc/frontend-react/my-app/node_modules/@babel/parser/lib/index.js:12279:16)
+    at TypeScriptParserMixin.parseMaybeAssignAllowIn (/home/pankajbansal/mx-egn-poc/frontend-react/my-app/node_modules/@babel/parser/lib/index.js:10567:17)
+    at TypeScriptParserMixin.parseVar (/home/pankajbansal/mx-egn-poc/frontend-react/my-app/node_modules/@babel/parser/lib/index.js:13259:91)
+    at TypeScriptParserMixin.parseVarStatement (/home/pankajbansal/mx-egn-poc/frontend-react/my-app/node_modules/@babel/parser/lib/index.js:13100:10)
+    at TypeScriptParserMixin.parseVarStatement (/home/pankajbansal/mx-egn-poc/frontend-react/my-app/node_modules/@babel/parser/lib/index.js:9306:31)
+    at TypeScriptParserMixin.parseStatementContent (/home/pankajbansal/mx-egn-poc/frontend-react/my-app/node_modules/@babel/parser/lib/index.js:12683:23)
+
+ERROR in [eslint] 
+src/App.tsx
+  Line 73:39:  Parsing error: ',' expected
+
+webpack compiled with 2 errors
+ERROR in src/App.tsx:73:40
+TS1005: ',' expected.
+    71 |          body: formData,
+    72 |      })
+  > 73 |      .then(response => response.json() console.log())
+       |                                        ^^^^^^^
+    74 |      .then(data => {
+    75 |         setSubmitBtnDisable(false)
+    76 |         setFileName("")
+
+ERROR in src/App.tsx:73:40
+TS2345: Argument of type 'void' is not assignable to parameter of type '((reason: any) => PromiseLike<never>) | null | undefined'.
+    71 |          body: formData,
+    72 |      })
+  > 73 |      .then(response => response.json() console.log())
+       |                                        ^^^^^^^^^^^^^
+    74 |      .then(data => {
+    75 |         setSubmitBtnDisable(false)
+    76 |         setFileName("")
+
+ERROR in src/App.tsx:79:40
+TS2339: Property 'message' does not exist on type 'Response'.
+    77 |          console.log("data", data)
+    78 |          // Extract the JSON string from the message
+  > 79 |          var jsonString = data && data.message && data.message[0]
+       |                                        ^^^^^^^
+    80 |          ? data.message.replace(/^```json/, '').replace(/```$/, '')
+    81 |          : null;
+    82 |          console.log("jsonString ==",jsonString)
+
+ERROR in src/App.tsx:79:56
+TS2339: Property 'message' does not exist on type 'Response'.
+    77 |          console.log("data", data)
+    78 |          // Extract the JSON string from the message
+  > 79 |          var jsonString = data && data.message && data.message[0]
+       |                                                        ^^^^^^^
+    80 |          ? data.message.replace(/^```json/, '').replace(/```$/, '')
+    81 |          : null;
+    82 |          console.log("jsonString ==",jsonString)
+
+ERROR in src/App.tsx:80:17
+TS2339: Property 'message' does not exist on type 'Response'.
+    78 |          // Extract the JSON string from the message
+    79 |          var jsonString = data && data.message && data.message[0]
+  > 80 |          ? data.message.replace(/^```json/, '').replace(/```$/, '')
+       |                 ^^^^^^^
+    81 |          : null;
+    82 |          console.log("jsonString ==",jsonString)
+    83 |
+
+Compiling...
+Compiled with warnings.
+
+[eslint] 
+src/App.tsx
+  Line 2:8:     'logo' is defined but never used     @typescript-eslint/no-unused-vars
+  Line 85:73:   Expected '===' and instead saw '=='  eqeqeq
+  Line 121:42:  Expected '===' and instead saw '=='  eqeqeq
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+WARNING in [eslint] 
+src/App.tsx
+  Line 2:8:     'logo' is defined but never used     @typescript-eslint/no-unused-vars
+  Line 85:73:   Expected '===' and instead saw '=='  eqeqeq
+  Line 121:42:  Expected '===' and instead saw '=='  eqeqeq
+
+webpack compiled with 1 warning
+No issues found.
+npm ERR! path /home/pankajbansal/mx-egn-poc/frontend-react/my-app
+npm ERR! command failed
+npm ERR! signal SIGHUP
+npm ERR! command sh -c react-scripts start
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /home/pankajbansal/.npm/_logs/2023-12-11T15_01_02_975Z-debug.log

@@ -14,7 +14,7 @@ function App() {
     const saveEmlDataToDB = async() =>{
         try{
             // console.log("Hello");
-            let res = await fetch('http://127.0.0.1:5000/store_json',{
+            let res = await fetch('http://34.70.229.241/api/store_json',{
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json', // Specify the content type as JSON
@@ -66,7 +66,7 @@ function App() {
      document.getElementById('results').innerText = `File "${fileName}" Is Being Processed. Please wait...`;
 
      // Send a POST request to the server to handle the file upload
-     fetch('http://127.0.0.1:5000/upload_eml', {
+     fetch('http://34.70.229.241/api/upload_eml', {
          method: 'POST',
          body: formData,
      })
@@ -121,7 +121,7 @@ function App() {
                         {fileName.length == 0 ? "No File Selected" : `${fileName} ✉️ Selected`}
                         </div>
                     </label>
-                    <input type="file" id="fileInput" className="hidden" accept=".eml" onChange={(e) => fileChangeHandler(e)}/>
+                    <input type="file" id="fileInput" className="hidden" accept=".json" onChange={(e) => fileChangeHandler(e)}/>
                     {/* <div id="dynamicText" className="text-gray-600 mt-2">{fileName.length == 0 ? "No File Selected" : `${fileName} Selected`}</div> */}
                     <button type="button" id="submitBtn" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={submitHandler} disabled={submitBtnDisabled}>
                         Submit
