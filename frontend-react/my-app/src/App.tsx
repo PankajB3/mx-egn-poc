@@ -11,6 +11,8 @@ function App() {
     const [submitBtnDisabled, setSubmitBtnDisable] = useState(true)
     const [feebackBtn, setFeedbackBtn] = useState(false)
     const [redirectToFeedback, setRedirectToFeedback] = useState(false)
+    const [emailContent, setEmailContent] = useState("")
+
     const navigate = useNavigate()
 
     // @ts-ignore
@@ -41,7 +43,7 @@ function App() {
     }
 
 //@ts-ignore
-  const submitHandler = () => {
+  const submitHandler = async() => {
     setSubmitBtnDisable(true)
     console.log("36");
     //@ts-ignore
@@ -72,38 +74,57 @@ function App() {
      //@ts-ignore
      // Show file upload message with the file name
      document.getElementById('results').innerText = `File "${fileName}" Is Being Processed. Please wait...`;
+     // Create an AbortController to handle the timeout
+     const controller = new AbortController();
+     const timeoutId = setTimeout(() => controller.abort(), 120000); // Timeout set to 20 seconds
 
-     // Send a POST request to the server to handle the file upload
-     fetch('http://34.70.229.241/api/upload_eml', {
-         method: 'POST',
-         body: formData,
-     })
-     .then(response => response.json())
-     .then(data => {
-        setSubmitBtnDisable(false)
-        setFileName("")
-         console.log("data", data)
-         // Extract the JSON string from the message
-         var jsonString = data && data.message && data.message[0]
-         ? data.message
-         : null;
-         console.log("jsonString ==",jsonString)
-
-         // Parse the JSON string into a JavaScript object
-         var jsonObject = (typeof jsonString == 'object' && (jsonString == undefined || null)) ? [] :  JSON.parse(jsonString);
-         console.log("jsonObject == ",jsonObject)
-
-         // Format and display the received JSON data
-         var formattedJson = JSON.stringify(jsonObject, null, 2);
-         setEmlData(formattedJson)
-         //@ts-ignore
-         document.getElementById('results').innerText = '\n' + formattedJson + '\n';
-        setFeedbackBtn(true)
-     })
-     .catch(error => {
-         console.error('Error:', error);
-         alert('An error occurred while processing the file. Please try again.');
-     })
+     try {
+        // Send a POST request to the server to handle the file upload
+        const response = await fetch('http://34.70.229.241/api/upload_eml', {
+          method: 'POST',
+          body: formData,
+          signal: controller.signal, // Pass the AbortSignal to the fetch request
+        });
+    
+        const data = await response.json();
+        setSubmitBtnDisable(false);
+        setFileName("");
+        console.log("data", data);
+    
+        // Extract the JSON string from the message
+        var jsonString = data && data.message && data.message[0] ? data.message : null;
+        console.log("jsonString ==", jsonString);
+    
+        // Parse the JSON string into a JavaScript object
+        var jsonObject = jsonString ? JSON.parse(jsonString) : null;
+        console.log("jsonObject == ", jsonObject);
+    
+        // Format and display the received JSON data
+        var formattedJson = JSON.stringify(jsonObject, null, 2);
+        setEmlData(formattedJson);
+        //@ts-ignore
+        document.getElementById('results').innerText = '\n' + formattedJson + '\n';
+        setFeedbackBtn(true);
+      } catch (error) {
+        if (error instanceof Error) {
+          if (error.name === 'AbortError') {
+            alert('Request timed out. Please try again.');
+            window.location.reload()
+          } else {
+            console.error('Error:', error);
+            alert('An error occurred while processing the file. Please try again.');
+            window.location.reload()
+          }
+        } else {
+          console.error('Unknown error:', error);
+          alert('An unknown error occurred. Please try again.');
+          window.location.reload()
+        }
+      } finally {
+        clearTimeout(timeoutId); // Clear the timeout to prevent it from triggering after the request is complete
+        //@ts-ignore
+        // document.getElementById('results').innerText = ''; // Clear the results message
+      }
   }
 
   //@ts-ignore
