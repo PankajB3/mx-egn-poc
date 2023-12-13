@@ -84,7 +84,7 @@ def extract_first_message(json_file_path):
                 subject = first_message.get("Subject", "")
                 blurb = first_message.get("Blurb", "")
 
-                output_text = f"{subject} {blurb}"
+                output_text = f'''Email Body \n {blurb}'''
 
                 with open("uploads/output_json.txt", 'w') as output_file:
                     output_file.write(output_text)

@@ -172,7 +172,7 @@ def upload_feedback():
         feedback_data = data.get('feedbackText')
 
         feedback_file_path = 'uploads/feedback_data.txt'
-        feedback_string = f''' The JSON data provided by you is {json_data} & related feedback given by user is {feedback_data}. '''
+        feedback_string = f'''\n The JSON data provided by you is {json_data} & related feedback given by user is {feedback_data}.'''
 
         # Validate data
         if not json_data or not feedback_data:
