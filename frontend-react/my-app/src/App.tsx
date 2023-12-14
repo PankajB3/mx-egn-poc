@@ -2,21 +2,23 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
 
 function App() {
 
     const [emlData, setEmlData] = useState({})
     const [fileName, setFileName] = useState("")
-    const [submitBtnDisabled, setSubmitBtnDisable] = useState(true)
+    const [submitBtnDisabled, setSubmitBtnDisable] = useState(false)
     const [feebackBtn, setFeedbackBtn] = useState(false)
-    const [redirectToFeedback, setRedirectToFeedback] = useState(false)
     const [emailContent, setEmailContent] = useState("")
 
     const navigate = useNavigate()
 
     // @ts-ignore
-    const setMyRedirect = async() => {    
+    const setMyRedirect = async() => {
+      // const data = JSON.parse(emailContent)
+      // let feedBackData = data?.Messages?.[0]?.Blurb || "No Messages Found In The Uploaded JSON"
         navigate('/feedback', {state:emlData})
     }
 
@@ -48,15 +50,15 @@ function App() {
     console.log("36");
     //@ts-ignore
      // Get the file input element
-     var fileInput = document.getElementById('fileInput');
+     
      var submitBtn = document.getElementById('submitBtn');
 
      //@ts-ignore
      // Check if a file is selected
-     if (fileInput.files.length === 0) {
-         alert('Please select an EML file before submitting.');
-         return;
-     }
+    //  if (fileInput.files.length === 0) {
+    //      alert('Please select an EML file before submitting.');
+    //      return;
+    //  }
 
      //@ts-ignore
      // Disable the submit button
@@ -64,19 +66,21 @@ function App() {
 
      //@ts-ignore
      // Get the selected file name
-     var fileName = fileInput.files[0].name;
+    //  var fileName = fileInput.files[0].name;
 
      // Create FormData object to send the file to the server
      var formData = new FormData();
      //@ts-ignore
-     formData.append('file', fileInput.files[0]);
+     formData.append('email_conversation',emailContent);
+
+    console.log(formData)
 
      //@ts-ignore
      // Show file upload message with the file name
      document.getElementById('results').innerText = `File "${fileName}" Is Being Processed. Please wait...`;
      // Create an AbortController to handle the timeout
      const controller = new AbortController();
-     const timeoutId = setTimeout(() => controller.abort(), 120000); // Timeout set to 20 seconds
+     const timeoutId = setTimeout(() => controller.abort(), 240000); // Timeout set to 4 minutes
 
      try {
         // Send a POST request to the server to handle the file upload
@@ -88,7 +92,7 @@ function App() {
     
         const data = await response.json();
         setSubmitBtnDisable(false);
-        setFileName("");
+        // setFileName("");
         console.log("data", data);
     
         // Extract the JSON string from the message
@@ -128,57 +132,74 @@ function App() {
   }
 
   //@ts-ignore
-  const fileChangeHandler = (e) => {
-    // console.log("File Change Handler", e.target.files[0].name);
+  // const fileChangeHandler = (e) => {
+  //   // console.log("File Change Handler", e.target.files[0].name);
     
-    if(e.target.files.length > 0) {
-        // console.log("File Change Handler", e.target.files[0].name);
-        setFileName(e.target.files[0].name)
-        setSubmitBtnDisable(false)
-    }
-  }
+  //   if(e.target.files.length > 0) {
+  //       // console.log("File Change Handler", e.target.files[0].name);
+  //       setFileName(e.target.files[0].name)
+  //       setSubmitBtnDisable(false)
+  //   }
+  // }
 
   return (
-    <div className="App">
-          <div className="container max-w-5xl mx-auto p-4">
-        <div className="flex justify-between gap-4">
-            <div className="flex-1">
-                <h1 className="text-3xl font-bold mb-8">EML Analyzer</h1>
-                <form id="uploadForm" encType="multipart/form-data">
-                    <label htmlFor="fileInput" className="cursor-pointer">
-                        <div className="bg-white p-10 border-4 border-dashed border-blue-500 rounded-lg mb-4 flex items-center justify-center text-gray-500">
-                        {fileName.length == 0 ? "No File Selected" : `${fileName} ✉️ Selected`}
-                        </div>
-                    </label>
-                    <input type="file" id="fileInput" className="hidden" accept=".json" onChange={(e) => fileChangeHandler(e)}/>
-                    {/* <div id="dynamicText" className="text-gray-600 mt-2">{fileName.length == 0 ? "No File Selected" : `${fileName} Selected`}</div> */}
-                    <button type="button" id="submitBtn" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={submitHandler} disabled={submitBtnDisabled}>
-                        Submit
-                    </button>
-                </form>
-            </div>
-            {/* <!-- Right Side --> */}
-            <div className="flex-1">
-                <h2 className="text-2xl font-bold mb-2">Results</h2>
-                <div id="results" className="bg-white p-10 border-4 border-green-500 rounded-lg h-96" style={{overflow :"scroll"}}></div>
-                
-                {feebackBtn ? <div>
-                    <div className="text-sm text-gray-600 mt-2 text-left">
-                    Is the output correct?
-                </div>
+<div className="App">
+      <div className="container mx-auto p-4">
+        <div className="lg:flex flex-col lg:flex-row gap-4">
+          {/* Left Side with Heading */}
+          <div className="lg:flex-1">
+            <h1 className="text-3xl font-bold mb-8 lg:mb-0">EML Analyzer</h1>
+            <form id="uploadForm" encType="multipart/form-data">
+              <div className="border-dotted border-4 border-blue-500 overflow-scroll mb-4">
+                <textarea
+                  name="email"
+                  cols={47}
+                  rows={15}
+                  placeholder='Paste Your JSON Here'
+                  className="w-full p-2"
+                  onChange={(e) => setEmailContent(e.target.value)}
+                ></textarea>
+              </div>
+              <button
+                type="button"
+                id="submitBtn"
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                onClick={submitHandler}
+                disabled={submitBtnDisabled}
+              >
+                Submit
+              </button>
+            </form>
+          </div>
+
+          {/* Right Side */}
+          <div className="lg:flex-1">
+            <h2 className="text-2xl font-bold mb-2">Results</h2>
+            <div id="results" className="bg-white p-4 border-4 border-green-500 rounded-lg h-96 overflow-scroll"></div>
+
+            {/* Feedback Buttons */}
+            {feebackBtn && (
+              <div>
+                <div className="text-sm text-gray-600 mt-2 text-left">Is the output correct?</div>
                 <div className="flex justify-between mt-4">
-                    <button className="flex items-center justify-center bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-6 rounded" onClick={saveEmlDataToDB}>
-                        <span>Yes</span>
-                    </button>
-                    <button className="flex items-center justify-center bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-6 rounded" onClick={setMyRedirect}>
-                        <span>No</span>
-                    </button>
+                  <button
+                    className="flex items-center justify-center bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-6 rounded"
+                    onClick={saveEmlDataToDB}
+                  >
+                    <span>Yes</span>
+                  </button>
+                  <button
+                    className="flex items-center justify-center bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-6 rounded"
+                    onClick={setMyRedirect}
+                  >
+                    <span>No</span>
+                  </button>
                 </div>
-                </div> : ""}
-                
-            </div>
+              </div>
+            )}
+          </div>
         </div>
-    </div>
+      </div>
     </div>
   );
 }
