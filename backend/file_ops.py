@@ -58,9 +58,24 @@ def improve_josn_response(data):
     )
     return response.choices[0].message.content
 
+
+def correct_json_text(text):
+    print("\n\n====Correcting JSON=====\n\n")
+    response = client.chat.completions.create(
+        model="gpt-3.5-turbo-1106",
+        response_format={ "type": "json_object" },
+        messages=[
+                {"role": "system", "content": "You are a helpful assistant. You need to make data provided by user into a valid json"},
+                {"role" :"user", "content" : f''' Data is {text} '''}
+            ]
+    ) 
+    return response.choices[0].message.content
+
+
 def correct_json(json_file_path):
     with open(json_file_path, 'r') as file:
         data = json.load(file)
+    print("\n\n====Correcting JSON=====\n\n")
     response = client.chat.completions.create(
         model="gpt-3.5-turbo-1106",
         response_format={ "type": "json_object" },

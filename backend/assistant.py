@@ -85,21 +85,24 @@ def assistant_works(eml_file, data_file, ex_file, fdb_file, thread):
           thread_id=thread.id,
           role="user",
           content=f''' 
-            Your Task: Analyze {eml_file.id} to retrieve all information.
+              Your Task: Analyze {eml_file.id} to retrieve all relevant information.
 
-            If you detect multiple values being quoted for a single key in the conversations, club them together under the relevant key in the form of a list.
+              If you observe multiple values being quoted for a single key in the conversations, aggregate them together under the corresponding key in the form of a list.
+              If you aggregate values for any key in a list, ensure to replicate that change for other keys as well. Repeat values in the list to maintain the same size for each list.
 
-            You are provided with the user email {eml_file.id}. Understand the {eml_file.id}, use your knowledge base {data_file.id} & example base {ex_file.id} to provide a clean JSON output
-            that clearly represents user quotes in the form of a JSON object.
+              You are provided with the user email {eml_file.id}. Understand the content of {eml_file.id}, utilize your knowledge base {data_file.id}, and reference the example base {ex_file.id} to generate a clean JSON output representing user quotes in the form of a JSON object.
 
-            Your output should have keys like the given object = {data}, and values for those keys would be extracted from {eml_file.id}. If for any key you are not able to get a suitable value, use "N/A."
+              Your output should have keys similar to the provided object = {data}, and values for those keys should be extracted from {eml_file.id}. If you cannot find a suitable value for any key, use "N/A."
 
-            Follow the following instructions strictly.
-            Important Instruction 1: Your response should strictly contain an object and nothing else.
-            Important Instruction 2: Your output should not contain suggestions; it should be strictly limited to the content from the user email {eml_file.id}.
-            Important Instruction 3: Do not create your own keys for identifying the value from user email conversation; use the heading from the knowledge base that suits the value best.
-            Important Instruction 4: No contact details need to be mentioned in the response.
-            Important Instruction 5: Remove any notes present in the response.
+              There mmight be multiple quotation given in  {eml_file.id}, club values in such a manner that they are relative for that particular quote in {eml_file.id}, you can also create nested lists for better representation.
+
+              Follow the instructions strictly:
+              Important Instruction 1: Your response should strictly contain an object and nothing else.
+              Important Instruction 2: Limit your output to the content from the user email {eml_file.id}; avoid including suggestions.
+              Important Instruction 3: Do not create new keys for identifying values from the user email conversation; use the heading from the knowledge base that best fits the value.
+              Important Instruction 4: Exclude contact details from the response.
+              Important Instruction 5: Remove any notes present in the response.
+              Important Instruction 6: Club multiple values detected for a single key in a list only.
             '''
           )
 

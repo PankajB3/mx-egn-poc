@@ -110,26 +110,33 @@ def store_json_in_mongo():
 def upload_eml():
     try:
         # Check if the file is included in the request
-        if 'file' not in request.files:
-            return jsonify({'error': 'No file provided'}), 400
+        # if 'file' not in request.files:
+        #     return jsonify({'error': 'No file provided'}), 400
 
-        file = request.files['file']
+        # file = request.files['file']
 
         # Check if the file has the correct extension
-        if not file.filename.endswith('.json'):
-            return jsonify({'error': 'Invalid file format. Please upload a .json file'}), 400
+        # if not file.filename.endswith('.json'):
+        #     return jsonify({'error': 'Invalid file format. Please upload a .json file'}), 400
+
+        # Get form data
+        data = request.form.get('email_conversation')
+
+        corrected_json = correct_json_text(data)
 
         # Save the uploaded file to a local folder
-        file_path = os.path.join('uploads', file.filename)
-        file.save(file_path)
-        os.rename(file_path, "uploads/output_email.json") # renaming file so that we can have a consistent name
+        json_file_path = os.path.join('uploads', "output_email.json")
+        with open(json_file_path, 'w') as file : 
+            file.write(corrected_json)
+        # file.save(file_path)
+        # os.rename(file_path, "uploads/output_email.json") # renaming file so that we can have a consistent name
 
-        json_file_path = "uploads/output_email.json"
+        # json_file_path = "uploads/output_email.json"
 
         # upload_knowledge_base_file()
         # store_as_text_file(eml_file_path)
 
-        correct_json(json_file_path)
+        # correct_json(json_file_path)
 
         extract_first_message(json_file_path)
 
