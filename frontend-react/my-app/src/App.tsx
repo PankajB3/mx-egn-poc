@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -8,10 +7,10 @@ import { useNavigate } from 'react-router-dom';
 function App() {
 
     const [emlData, setEmlData] = useState({})
-    const [fileName, setFileName] = useState("")
     const [submitBtnDisabled, setSubmitBtnDisable] = useState(false)
     const [feebackBtn, setFeedbackBtn] = useState(false)
     const [emailContent, setEmailContent] = useState("")
+    const [updateJSONInput, setUpdateJSONInput] = useState("")
 
     const navigate = useNavigate()
 
@@ -77,10 +76,10 @@ function App() {
 
      //@ts-ignore
      // Show file upload message with the file name
-     document.getElementById('results').innerText = `File "${fileName}" Is Being Processed. Please wait...`;
+     document.getElementById('results').innerText = `Your JSON Is Being Processed. Please wait...`;
      // Create an AbortController to handle the timeout
      const controller = new AbortController();
-     const timeoutId = setTimeout(() => controller.abort(), 240000); // Timeout set to 4 minutes
+     const timeoutId = setTimeout(() => controller.abort(), 1040000); // Timeout set to 4 minutes
 
      try {
         // Send a POST request to the server to handle the file upload
@@ -142,65 +141,114 @@ function App() {
   //   }
   // }
 
+    //@ts-ignore
+  const updateJSONFormHandler = async(event) => {
+    try{
+      event.preventDefault()
+      
+      // @ts-ignore
+      document.getElementById('results').innerText = "We Are Updating JSON As Per Instructions Please Wait..."
+      const result = await fetch('http://34.70.229.241/api/update_json', {
+        method:'POST',
+        headers:{
+          'Content-Type':'application/json'
+      },
+        body:JSON.stringify({updateJSONInput, emlData})
+      })
+      const data = await result.json()
+      if(result.ok){
+        // @ts-ignore
+        document.getElementById('results').innerText = data.message
+        setEmlData(data.message)
+        // @ts-ignore
+        document.getElementsByName('instructionText').value = ''
+      }else{
+        alert("Error In Updating JSON")
+      }
+    }catch(err){
+      alert(`Error : ${err}`)
+    }
+  }
+
+
   return (
 <div className="App">
-      <div className="container mx-auto p-4">
-        <div className="lg:flex flex-col lg:flex-row gap-4">
-          {/* Left Side with Heading */}
-          <div className="lg:flex-1">
-            <h1 className="text-3xl font-bold mb-8 lg:mb-0">EML Analyzer</h1>
-            <form id="uploadForm" encType="multipart/form-data">
-              <div className="border-dotted border-4 border-blue-500 overflow-scroll mb-4">
-                <textarea
-                  name="email"
-                  cols={47}
-                  rows={15}
-                  placeholder='Paste Your JSON Here'
-                  className="w-full p-2"
-                  onChange={(e) => setEmailContent(e.target.value)}
-                ></textarea>
-              </div>
+  <div className="container mx-auto p-4 flex flex-col items-center justify-center min-h-screen">
+    <div className="lg:flex flex-col lg:flex-row gap-4 w-full">
+      {/* Left Side with Heading */}
+      <div className="lg:flex-1 w-full mb-8 lg:mb-0">
+        <h1 className="text-3xl font-bold mb-8 lg:mb-0 text-center lg:text-left">EML Analyzer</h1>
+        <form id="uploadForm" encType="multipart/form-data">
+          <div className="border-dotted border-4 border-blue-500 overflow-scroll mb-4">
+            <textarea
+              name="email"
+              cols={47}
+              rows={15}
+              placeholder='Paste Your JSON Here'
+              className="w-full p-2"
+              onChange={(e) => setEmailContent(e.target.value)}
+            ></textarea>
+          </div>
+          <button
+            type="button"
+            id="submitBtn"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            onClick={submitHandler}
+            disabled={submitBtnDisabled}
+          >
+            Submit
+          </button>
+        </form>
+      </div>
+
+      {/* Right Side */}
+      <div className="lg:flex-1 w-full">
+        <h2 className="text-2xl font-bold mb-2 text-center lg:text-left">Results</h2>
+        <div id="results" className="bg-white p-4 border-4 border-green-500 rounded-lg h-96 overflow-scroll"></div>
+
+        {/* Feedback Buttons */}
+        {feebackBtn && (
+          <div>
+            <div className="text-sm text-gray-600 mt-2 text-center lg:text-left">Is the output correct?</div>
+            <div className="flex justify-center lg:justify-between mt-4">
               <button
-                type="button"
-                id="submitBtn"
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                onClick={submitHandler}
-                disabled={submitBtnDisabled}
+                className="flex items-center justify-center bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-6 rounded"
+                onClick={saveEmlDataToDB}
               >
-                Submit
+                <span>Yes</span>
               </button>
-            </form>
+              <button
+                className="flex items-center justify-center bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-6 rounded"
+                onClick={setMyRedirect}
+              >
+                <span>No</span>
+              </button>
+            </div>
           </div>
-
-          {/* Right Side */}
-          <div className="lg:flex-1">
-            <h2 className="text-2xl font-bold mb-2">Results</h2>
-            <div id="results" className="bg-white p-4 border-4 border-green-500 rounded-lg h-96 overflow-scroll"></div>
-
-            {/* Feedback Buttons */}
-            {feebackBtn && (
-              <div>
-                <div className="text-sm text-gray-600 mt-2 text-left">Is the output correct?</div>
-                <div className="flex justify-between mt-4">
-                  <button
-                    className="flex items-center justify-center bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-6 rounded"
-                    onClick={saveEmlDataToDB}
-                  >
-                    <span>Yes</span>
-                  </button>
-                  <button
-                    className="flex items-center justify-center bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-6 rounded"
-                    onClick={setMyRedirect}
-                  >
-                    <span>No</span>
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
+        )}
       </div>
     </div>
+    
+    {Object.keys(emlData).length > 0 && (
+      <div className="mt-8">
+        <form onSubmit={updateJSONFormHandler}>
+          <textarea
+            name="instructionText"
+            rows={5}
+            cols={40}
+            placeholder='Enter the update instruction here'
+            onChange={(e) => setUpdateJSONInput(e.target.value)}
+            className="w-full p-2 border border-gray-300 rounded"
+          ></textarea>
+          <button type="submit" className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-6 rounded mt-4'>
+            Update JSON Result
+          </button>
+        </form>
+      </div>
+    )}
+  </div>
+</div>
+
   );
 }
 
