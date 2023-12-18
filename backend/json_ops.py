@@ -99,3 +99,14 @@ def upload_file_openai():
             raise FileNotFoundError("Files Are Missing")
     except Exception as e:
         raise e
+
+def improveJSONData(instruction, json_data):
+    response = client.chat.completions.create(
+    model="gpt-4-1106-preview",
+    response_format={ "type": "json_object" },
+    messages=[
+                {"role": "system", "content": "You are a helpful assistant. You will be provided with instruction & JSON Data by the user. You need to update the JSON data as per the instruction given by user."},
+                {"role" :"user", "content" : f''' JSON Data is {json_data} & instruction given are {instruction}. Return a clean JSON output without anything extra attached to it.'''}
+            ]
+    )
+    return response.choices[0].message.content

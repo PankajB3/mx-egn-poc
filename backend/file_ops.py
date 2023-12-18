@@ -49,7 +49,7 @@ def store_as_text_file(eml_file_path):
 
 def improve_josn_response(data):
     response = client.chat.completions.create(
-        model="gpt-3.5-turbo-1106",
+        model="gpt-4-1106-preview",
         response_format={ "type": "json_object" },
         messages=[
                 {"role": "system", "content": "You are a helpful assistant. You need to make data provided by user into a valid json"},
@@ -62,7 +62,7 @@ def improve_josn_response(data):
 def correct_json_text(text):
     print("\n\n====Correcting JSON=====\n\n")
     response = client.chat.completions.create(
-        model="gpt-3.5-turbo-1106",
+        model="gpt-4-1106-preview",
         response_format={ "type": "json_object" },
         messages=[
                 {"role": "system", "content": "You are a helpful assistant. You need to make data provided by user into a valid json"},
@@ -77,7 +77,7 @@ def correct_json(json_file_path):
         data = json.load(file)
     print("\n\n====Correcting JSON=====\n\n")
     response = client.chat.completions.create(
-        model="gpt-3.5-turbo-1106",
+        model="gpt-4-1106-preview",
         response_format={ "type": "json_object" },
         messages=[
                 {"role": "system", "content": "You are a helpful assistant. You need to make data provided by user into a valid json"},

@@ -35,8 +35,8 @@ def assistant_works(eml_file, data_file, ex_file, fdb_file, thread):
           Role Description: Technical Quotation Analyzer
 
           You are an adept technical quotation analyzer tasked with extracting and categorizing details from consumer quotations provided in email body ({eml_file.id}).
-           Your primary resources are the knowledge base ({data_file.id}) and example base ({ex_file.id}), 
-           which you must use exclusively for analyzing the email content.
+          Your primary resources are the knowledge base ({data_file.id}) and example base ({ex_file.id}) & feedback base {fdb_file.id}, 
+          which you must use exclusively for analyzing the email content.
 
           Instructions:
 
@@ -85,24 +85,20 @@ def assistant_works(eml_file, data_file, ex_file, fdb_file, thread):
           thread_id=thread.id,
           role="user",
           content=f''' 
-              Your Task: Analyze {eml_file.id} to retrieve all relevant information.
-
-              If you observe multiple values being quoted for a single key in the conversations, aggregate them together under the corresponding key in the form of a list.
-              If you aggregate values for any key in a list, ensure to replicate that change for other keys as well. Repeat values in the list to maintain the same size for each list.
-
+          Your Task: Analyze {eml_file.id} to retrieve all relevant information.
+          
               You are provided with the user email {eml_file.id}. Understand the content of {eml_file.id}, utilize your knowledge base {data_file.id}, and reference the example base {ex_file.id} to generate a clean JSON output representing user quotes in the form of a JSON object.
 
               Your output should have keys similar to the provided object = {data}, and values for those keys should be extracted from {eml_file.id}. If you cannot find a suitable value for any key, use "N/A."
 
-              There mmight be multiple quotation given in  {eml_file.id}, club values in such a manner that they are relative for that particular quote in {eml_file.id}, you can also create nested lists for better representation.
+              There mmight be multiple quotation given in {eml_file.id}, create an array of objects with each objects keys equivalent to {data} & represent their corresponding values into it.
 
               Follow the instructions strictly:
               Important Instruction 1: Your response should strictly contain an object and nothing else.
               Important Instruction 2: Limit your output to the content from the user email {eml_file.id}; avoid including suggestions.
-              Important Instruction 3: Do not create new keys for identifying values from the user email conversation; use the heading from the knowledge base that best fits the value.
+              Important Instruction 3: Do not create new keys for identifying values from the user email conversation, use the heading from the knowledge base that best fits the value.
               Important Instruction 4: Exclude contact details from the response.
               Important Instruction 5: Remove any notes present in the response.
-              Important Instruction 6: Club multiple values detected for a single key in a list only.
             '''
           )
 

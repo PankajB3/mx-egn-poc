@@ -122,6 +122,8 @@ def upload_eml():
         # Get form data
         data = request.form.get('email_conversation')
 
+        print(data)
+
         corrected_json = correct_json_text(data)
 
         # Save the uploaded file to a local folder
@@ -144,7 +146,9 @@ def upload_eml():
 
         messages = start_assistant(conv_file, data_file, ex_output_file, feedback_file)
 
-        # time.sleep(5)
+        print(messages)
+
+        time.sleep(5)
 
         # os.remove("uploads/output_email.json") # deleting the conversation json from system
         # os.remove("uploads/output_email.txt")
@@ -168,6 +172,21 @@ def upload_eml():
         print(e)
         return jsonify({'error': str(e)}), 500
 
+
+# update json data as per instruction given by user.
+@app.route('/api/update_json', methods=['POST'])
+def update_json():
+    try:
+        body_data = request.get_json()
+        instruction = body_data.get('updateJSONInput')
+        jsonData = body_data.get('emlData')
+
+
+
+        improved_json = improveJSONData(instruction, jsonData)
+        return jsonify({'message': improved_json}), 200
+    except Exception as e:
+        raise e
 
 # Define a route to handle feedback given by the user
 @app.route('/api/feedback', methods=['POST'])
