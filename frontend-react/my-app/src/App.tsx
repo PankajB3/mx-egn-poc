@@ -173,80 +173,89 @@ function App() {
 
   return (
 <div className="App">
-  <div className="container mx-auto p-4 flex flex-col items-center justify-center min-h-screen">
-    <div className="lg:flex flex-col lg:flex-row gap-4 w-full">
-      {/* Left Side with Heading */}
-      <div className="lg:flex-1 w-full mb-8 lg:mb-0">
-        <h1 className="text-3xl font-bold mb-8 lg:mb-0 text-center lg:text-left">EML Analyzer</h1>
-        <form id="uploadForm" encType="multipart/form-data">
-          <div className="border-dotted border-4 border-blue-500 overflow-scroll mb-4">
-            <textarea
-              name="email"
-              cols={47}
-              rows={15}
-              placeholder='Paste Your JSON Here'
-              className="w-full p-2"
-              onChange={(e) => setEmailContent(e.target.value)}
-            ></textarea>
-          </div>
-          <button
-            type="button"
-            id="submitBtn"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            onClick={submitHandler}
-            disabled={submitBtnDisabled}
-          >
-            Submit
-          </button>
-        </form>
-      </div>
-
-      {/* Right Side */}
-      <div className="lg:flex-1 w-full">
-        <h2 className="text-2xl font-bold mb-2 text-center lg:text-left">Results</h2>
-        <div id="results" className="bg-white p-4 border-4 border-green-500 rounded-lg h-96 overflow-scroll"></div>
-
-        {/* Feedback Buttons */}
-        {feebackBtn && (
-          <div>
-            <div className="text-sm text-gray-600 mt-2 text-center lg:text-left">Is the output correct?</div>
-            <div className="flex justify-center lg:justify-between mt-4">
-              <button
-                className="flex items-center justify-center bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-6 rounded"
-                onClick={saveEmlDataToDB}
-              >
-                <span>Yes</span>
-              </button>
-              <button
-                className="flex items-center justify-center bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-6 rounded"
-                onClick={setMyRedirect}
-              >
-                <span>No</span>
-              </button>
+  <div className="flex flex-col min-h-screen bg-gray-100">
+      <div className="container mx-auto p-4 flex flex-col lg:flex-row items-center justify-center">
+        {/* Left Side with Heading */}
+        <div className="lg:flex-1 w-full mb-8 lg:mb-0">
+          <h1 className="text-4xl font-extrabold mb-8 text-center lg:text-left text-blue-500">
+            EML Analyzer
+          </h1>
+          <form id="uploadForm" encType="multipart/form-data">
+            <div className="border-dotted border-4 border-blue-500 mb-4 overflow-hidden rounded-md mx-4">
+              <textarea
+                name="email"
+                cols={40}
+                rows={13}
+                placeholder="Paste Your JSON Here"
+                className="w-full p-4 resize-none focus:outline-none"
+                onChange={(e) => setEmailContent(e.target.value)}
+              ></textarea>
             </div>
-          </div>
-        )}
+            <button
+              type="button"
+              id="submitBtn"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none"
+              onClick={submitHandler}
+              disabled={submitBtnDisabled}
+            >
+              Submit
+            </button>
+          </form>
+        </div>
+
+        {/* Right Side */}
+        <div className="lg:flex-1 w-full">
+          <h2 className="text-2xl font-bold mb-2 text-center lg:text-left text-green-500">Results</h2>
+          <div
+            id="results"
+            className="bg-white p-4 border-4 border-green-500 rounded-lg h-96 overflow-scroll mx-4"
+          ></div>
+
+          {/* Feedback Buttons */}
+          {feebackBtn && (
+            <div className="mt-4">
+              <div className="text-sm text-gray-600 text-center lg:text-left">
+                Is the output correct?
+              </div>
+              <div className="flex justify-center lg:justify-between mt-2">
+                <button
+                  className="flex items-center justify-center bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-6 rounded"
+                  onClick={saveEmlDataToDB}
+                >
+                  Yes
+                </button>
+                <button
+                  className="flex items-center justify-center bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-6 rounded"
+                  onClick={setMyRedirect}
+                >
+                  No
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
+
+      {Object.keys(emlData).length > 0 && (
+        <div className="container mx-auto mt-8">
+          <form onSubmit={updateJSONFormHandler}>
+            <textarea
+              name="instructionText"
+              rows={5}
+              placeholder="Enter the update instruction here"
+              onChange={(e) => setUpdateJSONInput(e.target.value)}
+              className="w-full p-4 border border-gray-300 rounded resize-none focus:outline-none"
+            ></textarea>
+            <button
+              type="submit"
+              className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-6 rounded mt-4'
+            >
+              Update JSON Result
+            </button>
+          </form>
+        </div>
+      )}
     </div>
-    
-    {Object.keys(emlData).length > 0 && (
-      <div className="mt-8">
-        <form onSubmit={updateJSONFormHandler}>
-          <textarea
-            name="instructionText"
-            rows={5}
-            cols={40}
-            placeholder='Enter the update instruction here'
-            onChange={(e) => setUpdateJSONInput(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded"
-          ></textarea>
-          <button type="submit" className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-6 rounded mt-4'>
-            Update JSON Result
-          </button>
-        </form>
-      </div>
-    )}
-  </div>
 </div>
 
   );
