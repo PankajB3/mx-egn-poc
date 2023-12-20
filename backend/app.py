@@ -148,8 +148,6 @@ def upload_eml():
 
         print(messages)
 
-        time.sleep(5)
-
         # os.remove("uploads/output_email.json") # deleting the conversation json from system
         # os.remove("uploads/output_email.txt")
 
