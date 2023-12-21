@@ -28,6 +28,8 @@ data = {
   "Quantities": ""
 }
 
+ex_multiple_data = [{"Length":"25", "Width":"26", "Thickness":"27", "Material":"FR4"},{"Length":"25", "Width":"26", "Thickness":"27", "Material":"G10"}]
+
 
 def assistant_works(eml_file, data_file, ex_file, fdb_file, thread):
     try:
@@ -93,10 +95,6 @@ def assistant_works(eml_file, data_file, ex_file, fdb_file, thread):
             - "Inner Diameter" & "Outer Diameter" can be or cannot be abbreviated as "ID" & "OD" respectively.
             - It might be possible that only one of them is mentioned or none is mentioned.
 
-          8. Handling Multiple Values For A Single Quantity : 
-            - There might be instances that for a some properties there are more than 1 value mentioned in {eml_file.id}.
-            - When encountering such situations, your task is to generate additional objects. Retain properties with consistent values and modify the property value that exhibits multiple values
-
           Following instructions must be followed strictly :
             - Instruction 1: Use {ex_file.id} as an example for training yourself on keys and values in the final Javascript Object output.
             - Instruction 2: If a critical value is not found, provide a key based on the email context.
@@ -125,7 +123,16 @@ def assistant_works(eml_file, data_file, ex_file, fdb_file, thread):
 
               Your output should have keys similar to the provided object = {data}, and values for those keys should be extracted from {eml_file.id}. If you cannot find a suitable value for any key, use "N/A."
 
-              There might be multiple quotation given in {eml_file.id}, create an array of objects with each objects keys equivalent to {data} & represent their corresponding values into it.
+              There might be multiple values given for a particular property in {eml_file.id}, create an array of objects with each objects keys equivalent to {data} & represent their corresponding values into it.
+              
+              In some cases, certain properties within {eml_file.id} may have more than one value. Your task is to address such situations by generating additional objects. 
+              Maintain properties with consistent values, and adjust the property value that exhibits multiple values. 
+              Consider the following as a example.
+              Email Content = "I need a quote for 25x26x27 FR4 OR G10 Sheet"
+              Expected Response should look as {ex_multiple_data}
+              Ensure that the response follows this format, with each object representing a distinct combination of values for the specified properties.
+              
+              When encountering "\n\n\n" in {eml_file.id}, this means end of a quotation, "\n\n" means part of current quotation. 
 
               There might be use of "Resin Substrate" or "Substrate Resin" in {eml_file.id}, now based on the value you need to identify "NEMA No Dash" for it using {data_file.id} & use this as a value for key "Material".
 
