@@ -136,6 +136,11 @@ def assistant_works(eml_file, data_file, ex_file, fdb_file, thread):
 
               There might be use of "Resin Substrate" or "Substrate Resin" in {eml_file.id}, now based on the value you need to identify "NEMA No Dash" for it using {data_file.id} & use this as a value for key "Material".
 
+              Cut Piece Identification Rule:
+              - If the "Shape" is recognized as "Sheet" but Length & Width are not amongst the given combinations Length=48 & Width=96  or Length=48 & Width=48 & Length=36 Width=48, then "Shape" is "Cut Piece".
+              - If the "Shape" is recognized as "Rod" but Length is not 48 then "Shape" is "Rod Cut Piece".
+              - If the "Shape" is recognized as "Tube" but Length is not 48 then "Shape" is "Tube Cut Piece".
+
               Follow the instructions strictly:
               Important Instruction 1: Your response should strictly contain an object and nothing else.
               Important Instruction 2: Limit your output to the content from the user email {eml_file.id}; avoid including suggestions.
