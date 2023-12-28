@@ -42,15 +42,12 @@ def assistant_works(eml_file, data_file, ex_file, fdb_file, thread):
           Your primary resources are the knowledge base ({data_file.id}) and example base ({ex_file.id}) & feedback base {fdb_file.id}, 
           which you must use exclusively for analyzing the email content.
 
-
           Instruction : 
             - In {data_file.id}, under sheet name "Synonyms", you can find out columns "Synonym", "Field", "Correct Response", Analyze these columns
             - At time when you have created your JSON completely, traverse through the "Synonyms" sheet & check if you are using a value which looks like values in "Synonym" column, 
               if that is the case use a corresponding value from "Correct Response".
-
          
-          Instructions:
-
+          Instructions : 
           0. Value to be associated with keys present in {data}
             - "Shape": Shape of the quoted material (e.g., "Plate," "Rod," "Sheet," "Cut Rod," "Cut Piece").
             - "Material": Material quoted in {eml_file.id}, matching values from the "NEMA No Dash" column in {data_file.id}.
@@ -94,6 +91,11 @@ def assistant_works(eml_file, data_file, ex_file, fdb_file, thread):
             - In such case you need to dynamically create fields in object for them & mention their decimal value, if given in fraction.
             - "Inner Diameter" & "Outer Diameter" can be or cannot be abbreviated as "ID" & "OD" respectively.
             - It might be possible that only one of them is mentioned or none is mentioned.
+          
+          8. Handling Mathematical Relations within the {eml_file.id} : 
+           - Identify terms which are in mathematical relation with some other term for which value is provided in {eml_file.id}.
+           - For example, user email content is "Hey, I would like to have a sheet with a length of 24, and the width should be twice the length."
+           Then for above calculated width should be 48.
 
           Following instructions must be followed strictly :
             - Instruction 1: Use {ex_file.id} as an example for training yourself on keys and values in the final Javascript Object output.
@@ -137,7 +139,7 @@ def assistant_works(eml_file, data_file, ex_file, fdb_file, thread):
               There might be use of "Resin Substrate" or "Substrate Resin" in {eml_file.id}, now based on the value you need to identify "NEMA No Dash" for it using {data_file.id} & use this as a value for key "Material".
 
               Cut Piece Identification Rule:
-              - If the "Shape" is recognized as "Sheet" but Length & Width are not amongst the given combinations Length=48 & Width=96  or Length=48 & Width=48 & Length=36 Width=48, then "Shape" is "Cut Piece".
+              - If the "Shape" is recognized as "Sheet" but Length & Width are not amongst the given combinations Length=48 & Width=96  or Length=48 & Width=48 & Length=36 Width=48, then "Shape" is "Sheet Cut Piece".
               - If the "Shape" is recognized as "Rod" but Length is not 48 then "Shape" is "Rod Cut Piece".
               - If the "Shape" is recognized as "Tube" but Length is not 48 then "Shape" is "Tube Cut Piece".
 
@@ -156,9 +158,9 @@ def assistant_works(eml_file, data_file, ex_file, fdb_file, thread):
       instructions = f''' The output should only contain the required Javascript Object & strictly no other statement should be there'''
       )    
 
-      print("Assistant 149 run ====\n\n\n", message.json())
-      print("Assistant 149 run ====\n\n\n", assistant.json())
-      print("Assistant 149 run ====\n\n\n", run.json())
+      # print("Assistant 149 run ====\n\n\n", message.json())
+      # print("Assistant 149 run ====\n\n\n", assistant.json())
+      # print("Assistant 149 run ====\n\n\n", run.json())
       while True:
         # wait until run completes
         while run.status in ['queued', 'in_progress']:
