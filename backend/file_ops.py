@@ -52,10 +52,14 @@ def improve_josn_response(data):
         model="gpt-4-1106-preview",
         response_format={ "type": "json_object" },
         messages=[
-                {"role": "system", "content": "You are a helpful assistant. You need to make data provided by user into a valid json"},
-                {"role" :"user", "content" : f''' Data is {data} '''}
+                {"role": "system", "content": f''' You are a helpful assistant. You need to make data provided by user into a valid json'''},
+                {"role" :"user", "content" : f''' Data is {data}. Additionally fields such as "Thickness", "Diameter", "Inner Diameter",
+                    "Outer Diameter", "Length", "Length+Tol", "Length-Tol", "Width", "Width+Tol, "Width-Tol", "Quantities" are numeric quantities.
+                    Trim any non numeric value associated with these keys except "N/A".
+                 '''}
             ]
     )
+    print("\n\n====correct json 2 ===== \n\n", response.json())
     return response.choices[0].message.content
 
 
@@ -68,7 +72,8 @@ def correct_json_text(text):
                 {"role": "system", "content": "You are a helpful assistant. You need to make data provided by user into a valid json"},
                 {"role" :"user", "content" : f''' Data is {text} '''}
             ]
-    ) 
+    )
+    print("\nCorrect JSON 1====\n",response)
     return response.choices[0].message.content
 
 

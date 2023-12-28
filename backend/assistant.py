@@ -145,13 +145,15 @@ def assistant_works(eml_file, data_file, ex_file, fdb_file, thread):
               Important Instruction 6 : In case you detect fraction values in the input text {eml_file.id}, convert that fractional value to its equivalent decimal value.
             '''
           )
-
       run = client.beta.threads.runs.create(
       thread_id=thread.id,
       assistant_id=assistant.id,
       instructions = f''' The output should only contain the required Javascript Object & strictly no other statement should be there'''
       )    
 
+      print("Assistant 149 run ====\n\n\n", message.json())
+      print("Assistant 149 run ====\n\n\n", assistant.json())
+      print("Assistant 149 run ====\n\n\n", run.json())
       while True:
         # wait until run completes
         while run.status in ['queued', 'in_progress']:
@@ -178,6 +180,7 @@ def start_assistant(eml_file, data_file, ex_file, fdb_file):
   try:
     thread = client.beta.threads.create()
     messages = assistant_works(eml_file, data_file, ex_file, fdb_file, thread)
+    print("\n\n===FINAL ANSWER===\n\n", messages)
     assistant_answer = []
 
     # display assistant messages
