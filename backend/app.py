@@ -4,7 +4,7 @@ from openai import OpenAI
 from dotenv import load_dotenv 
 from file_ops import *
 from json_ops import *
-from assistant import *
+from assistant_gpt.assistant import *
 from flask_cors import CORS
 # from flask_pymongo import PyMongo
 from pymongo import MongoClient
