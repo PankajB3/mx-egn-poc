@@ -26,12 +26,6 @@ tls_certifi = certifi.where()
 # Initialize OpenAI client
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-# Initialize MongoDB connection
-mongo_uri = os.getenv("MONGO_URI")  # your MongoDB Atlas connection string
-client = MongoClient(mongo_uri, tlsCAFile=tls_certifi)
-db = client.get_database("mx-egn-poc")  # your database name
-collection = db.get_collection("emlData")  #  your collection name
-
 os.makedirs('uploads', exist_ok=True)
 
 @app.route('/api/upload_example_output', methods=['POST'])
@@ -99,72 +93,6 @@ def store_json_in_mongo():
 
         # Return success response
         return jsonify({'message': 'JSON object stored successfully', 'id': str(result.inserted_id)}), 200
-
-    except Exception as e:
-        print(e)
-        return jsonify({'error': str(e)}), 500
-
-
-# Define a route to handle file uploads
-@app.route('/api/upload_eml', methods=['POST'])
-def upload_eml():
-    try:
-        # Check if the file is included in the request
-        # if 'file' not in request.files:
-        #     return jsonify({'error': 'No file provided'}), 400
-
-        # file = request.files['file']
-
-        # Check if the file has the correct extension
-        # if not file.filename.endswith('.json'):
-        #     return jsonify({'error': 'Invalid file format. Please upload a .json file'}), 400
-
-        # Get form data
-        data = request.form.get('email_conversation')
-
-        print(data)
-
-        corrected_json = correct_json_text(data)
-
-        # Save the uploaded file to a local folder
-        json_file_path = os.path.join('uploads', "output_email.json")
-        with open(json_file_path, 'w') as file : 
-            file.write(corrected_json)
-        # file.save(file_path)
-        # os.rename(file_path, "uploads/output_email.json") # renaming file so that we can have a consistent name
-
-        # json_file_path = "uploads/output_email.json"
-
-        # upload_knowledge_base_file()
-        # store_as_text_file(eml_file_path)
-
-        # correct_json(json_file_path)
-
-        extract_first_message(json_file_path)
-
-        (data_file, conv_file, ex_output_file, feedback_file) = upload_file_openai()
-
-        messages = start_assistant(conv_file, data_file, ex_output_file, feedback_file)
-
-        print(messages)
-
-        # os.remove("uploads/output_email.json") # deleting the conversation json from system
-        # os.remove("uploads/output_email.txt")
-
-        if messages:
-            # If messages list is not empty, access the first element
-            response_message = messages[0].replace("\n", "").replace("\ ", "")
-
-            ai_response = improve_josn_response(response_message)
-            
-            return jsonify({'message': ai_response}), 200
-        else:
-            # If messages list is empty, provide a default message or handle it accordingly
-            return jsonify({'message': 'No messages available'}), 200
-    except json.JSONDecodeError as je:
-        return jsonify({'error' : "Invalid JSON format"})
-    except FileNotFoundError as fe:
-        return jsonify({'error': f'File not found: {fe}'}), 404
 
     except Exception as e:
         print(e)
