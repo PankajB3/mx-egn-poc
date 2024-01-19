@@ -23,6 +23,17 @@ CORS(app)
 # Initialize OpenAI client
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
+tls_certifi = certifi.where()
+
+# Initialize OpenAI client
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
+# Initialize MongoDB connection
+mongo_uri = os.getenv("MONGO_URI")  # your MongoDB Atlas connection string
+client = MongoClient(mongo_uri, tlsCAFile=tls_certifi)
+db = client.get_database("mx-egn-poc")  # your database name
+collection = db.get_collection("emlData")  #  your collection name
+
 os.makedirs('uploads', exist_ok=True)
 
 # The following API handler takes an example output excel sheet in input, which could be used a a reference for our Assistant API
@@ -78,6 +89,66 @@ def upload_knowledge_base():
             return jsonify({'message': 'File uploaded successfully'})
 
         return jsonify({'error': 'Invalid file format'})
+    except Exception as e:
+        print(e)
+        return jsonify({'error': str(e)}), 500
+
+
+# Define a route to eml data
+# method  POST
+# Parameters : 
+# email_conversations : EML data provided by user    
+@app.route('/api/upload_eml', methods=['POST'])
+def upload_eml():
+    try:
+        # Get form data
+        data = request.form.get('email_conversation')
+
+        corrected_json = correct_json_text(data)
+
+        # Save the uploaded file to a local folder
+        json_file_path = os.path.join('uploads', "output_email.json")
+        with open(json_file_path, 'w') as file : 
+            file.write(corrected_json)
+
+        extract_first_message(json_file_path)
+
+        (data_file, conv_file, ex_output_file, feedback_file) = upload_file_openai()
+
+        messages = start_assistant(conv_file, data_file, ex_output_file, feedback_file)
+
+        if messages:
+            # If messages list is not empty, access the first element
+            response_message = messages[0].replace("\n", "").replace("\ ", "")
+
+            ai_response = improve_josn_response(response_message)
+
+            return jsonify({'message': ai_response}), 200
+        else:
+            # If messages list is empty, provide a default message or handle it accordingly
+            return jsonify({'message': 'No messages available'}), 200
+    except json.JSONDecodeError as je:
+        return jsonify({'error' : "Invalid JSON format"})
+    except FileNotFoundError as fe:
+        return jsonify({'error': f'File not found: {fe}'}), 404
+
+    except Exception as e:
+        print(e)
+        return jsonify({'error': str(e)}), 500
+
+
+# Define a route to handle JSON object uploads to MongoDB
+# method : POST
+@app.route('/api/store_json', methods=['POST'])
+def store_json_in_mongo():
+    try:
+        # Get JSON object from request body
+        data = request.json
+        data2 = json.loads(data)
+        # Insert the JSON object into MongoDB
+        result = collection.insert_one(data2)
+        # Return success response
+        return jsonify({'message': 'JSON object stored successfully', 'id': str(result.inserted_id)}), 200
     except Exception as e:
         print(e)
         return jsonify({'error': str(e)}), 500
@@ -140,6 +211,7 @@ def upload_feedback():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
     
+
 
 # Home route
 @app.route('/api')
