@@ -177,7 +177,7 @@ function App() {
                   className="flex items-center justify-center bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-6 rounded"
                   onClick={setMyRedirect}
                 >
-                  No
+                  Feedback
                 </button>
               </div>
             </div>
