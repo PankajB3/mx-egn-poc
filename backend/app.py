@@ -30,9 +30,11 @@ client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 # Initialize MongoDB connection
 mongo_uri = os.getenv("MONGO_URI")  # your MongoDB Atlas connection string
+db_name=os.getenv("DATABASE_NAME")
+coll_name=os.getenv("COLLECTION_NAME")
 client = MongoClient(mongo_uri, tlsCAFile=tls_certifi)
-db = client.get_database("mx-egn-poc")  # your database name
-collection = db.get_collection("emlData")  #  your collection name
+db = client.get_database(db_name)  # your database name
+collection = db.get_collection(coll_name)  #  your collection name
 
 os.makedirs('uploads', exist_ok=True)
 

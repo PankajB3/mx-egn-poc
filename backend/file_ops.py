@@ -47,6 +47,16 @@ def store_as_text_file(eml_file_path):
     except Exception as e:
         raise e
 
+def correct_json_text(text):
+    response = client.chat.completions.create(
+        model="gpt-4-1106-preview",
+        response_format={ "type": "json_object" },
+        messages=[
+                {"role": "system", "content": "You are a helpful assistant. You need to make data provided by user into a valid json"},
+                {"role" :"user", "content" : f''' Data is {text} '''}
+            ]
+    )
+    return response.choices[0].message.content
 
 # check if feedback file exists in its expected location, if not create it
 def create_or_open_text_file():
@@ -73,19 +83,6 @@ def improve_josn_response(data):
                     "Outer Diameter", "Length", "Length+Tol", "Length-Tol", "Width", "Width+Tol, "Width-Tol", "Quantities" are numeric quantities.
                     Trim any non numeric value associated with these keys except "N/A".
                  '''}
-            ]
-    )
-    return response.choices[0].message.content
-
-
-# improve json data
-def improve_josn_response(text):
-    response = client.chat.completions.create(
-        model="gpt-4-1106-preview",
-        response_format={ "type": "json_object" },
-        messages=[
-                {"role": "system", "content": "You are a helpful assistant. You need to make data provided by user into a valid json"},
-                {"role" :"user", "content" : f''' Data is {text} '''}
             ]
     )
     return response.choices[0].message.content
