@@ -5,53 +5,38 @@ import { useNavigate } from 'react-router-dom';
 
 
 function App() {
-
+    //  state to store EML Data
     const [emlData, setEmlData] = useState({})
+    // state to handle submit button able/disable property, initially false
     const [submitBtnDisabled, setSubmitBtnDisable] = useState(false)
+    // state to handle feedback button able/disable property, initially false 
     const [feebackBtn, setFeedbackBtn] = useState(false)
+    //  state to store EML
     const [emailContent, setEmailContent] = useState("")
+    //  state to JSON
     const [updateJSONInput, setUpdateJSONInput] = useState("")
 
     const navigate = useNavigate()
 
     // @ts-ignore
     const setMyRedirect = async() => {
-      // const data = JSON.parse(emailContent)
-      // let feedBackData = data?.Messages?.[0]?.Blurb || "No Messages Found In The Uploaded JSON"
+      // navigates to feedback page, with the JSON data
         navigate('/feedback', {state:emlData})
     }
 
 //@ts-ignore
   const submitHandler = async() => {
-    setSubmitBtnDisable(true)
-    console.log("36");
+    setSubmitBtnDisable(true) // disabling submit button
     //@ts-ignore
      // Get the file input element
-     
      var submitBtn = document.getElementById('submitBtn');
-
-     //@ts-ignore
-     // Check if a file is selected
-    //  if (fileInput.files.length === 0) {
-    //      alert('Please select an EML file before submitting.');
-    //      return;
-    //  }
-
      //@ts-ignore
      // Disable the submit button
      submitBtn.disabled = true;
-
-     //@ts-ignore
-     // Get the selected file name
-    //  var fileName = fileInput.files[0].name;
-
      // Create FormData object to send the file to the server
      var formData = new FormData();
      //@ts-ignore
      formData.append('email_conversation',emailContent);
-
-    console.log(formData)
-
      //@ts-ignore
      // Show file upload message with the file name
      document.getElementById('results').innerText = `Your JSON Is Being Processed. Please wait...`;
@@ -69,17 +54,13 @@ function App() {
     
         const data = await response.json();
         setSubmitBtnDisable(false);
-        // setFileName("");
-        console.log("data", data);
     
         // Extract the JSON string from the message
         var jsonString = data && data.message && data.message[0] ? data.message : null;
-        console.log("jsonString ==", jsonString);
-    
+       
         // Parse the JSON string into a JavaScript object
         var jsonObject = jsonString ? JSON.parse(jsonString) : null;
-        console.log("jsonObject == ", jsonObject);
-    
+        
         // Format and display the received JSON data
         var formattedJson = JSON.stringify(jsonObject, null, 2);
         setEmlData(formattedJson);
@@ -103,44 +84,40 @@ function App() {
         }
       } finally {
         clearTimeout(timeoutId); // Clear the timeout to prevent it from triggering after the request is complete
-        //@ts-ignore
-        // document.getElementById('results').innerText = ''; // Clear the results message
       }
   }
 
+  // Form submission handler for updating JSON data
   //@ts-ignore
-  // const fileChangeHandler = (e) => {
-  //   // console.log("File Change Handler", e.target.files[0].name);
-    
-  //   if(e.target.files.length > 0) {
-  //       // console.log("File Change Handler", e.target.files[0].name);
-  //       setFileName(e.target.files[0].name)
-  //       setSubmitBtnDisable(false)
-  //   }
-  // }
-
-    //@ts-ignore
   const updateJSONFormHandler = async(event) => {
     try{
+      // Prevent the default form submission behavior
       event.preventDefault()
       
+      // Display a message indicating that JSON update is in progress
       // @ts-ignore
       document.getElementById('results').innerText = "We Are Updating JSON As Per Instructions Please Wait..."
+       // Perform a fetch request to the '/api/update_json' endpoint
       const result = await fetch('http://34.70.229.241/api/update_json', {
         method:'POST',
         headers:{
           'Content-Type':'application/json'
       },
-        body:JSON.stringify({updateJSONInput, emlData})
+        body:JSON.stringify({updateJSONInput, emlData}) // Send JSON payload containing 'updateJSONInput' and 'emlData'
       })
+      // Parse the response JSON
       const data = await result.json()
       if(result.ok){
+        // Update the results area with the success message
         // @ts-ignore
         document.getElementById('results').innerText = data.message
+        // Update the 'emlData' state with the received message
         setEmlData(data.message)
+        // Clear the input field with the name 'instructionText'
         // @ts-ignore
         document.getElementsByName('instructionText').value = ''
       }else{
+        // Display an alert in case of an error during JSON update
         alert("Error In Updating JSON")
       }
     }catch(err){

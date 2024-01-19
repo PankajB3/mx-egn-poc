@@ -1,22 +1,32 @@
 import { useNavigate, useLocation } from "react-router-dom"
+// Functional component for the Feedback form
 // @ts-ignore
 function Feedback() {
+  // Extract data from the location object using useLocation hook
     const data = useLocation()
+    // Access JSON data from the state
     const jsonData = data.state
-    console.log("Feedback Component",data.state)    
+    // Access the navigation function for redirecting
     const navigate = useNavigate()
+
+    // Function to handle the submission of the feedback form
     // @ts-ignore
     const submitFeedbackForm = async (event) => {
         try{
+          // Prevent the default form submission behavior
             event.preventDefault()
+            // Create a FormData object from the form data
             const formData = new FormData(event.target)
+            // Extract feedback text from the form data
             const feedbackText = formData.get('feedbackText')
+            // Make a POST request to the feedback API endpoint
             const result = await fetch('http://34.70.229.241/api/feedback',
                 {
                     method:'POST',
                     headers:{
                         'Content-Type':'application/json'
                     },
+                     // Convert feedback data to JSON and send it in the request body
                     body: JSON.stringify(
                         {
                             jsonData,
@@ -25,6 +35,7 @@ function Feedback() {
                     )
                 }
             )
+            // Check if the request was successful
             if(result.ok){
                 // Display success alert
                 alert('Feedback submitted successfully!');
@@ -37,12 +48,15 @@ function Feedback() {
                 navigate('/');
             }
         }catch(err){
+          // Display a generic error message in case of unexpected errors
             alert('An unexpected error occurred. Please try again later.');
         }finally{
+          // Ensure navigation happens even in case of errors
             navigate('/');
         }
     }
-  
+
+    // Return JSX for the Feedback component
     return (
       <div className="bg-gray-100 min-h-screen flex items-center justify-center">
   <div className="bg-white p-8 rounded shadow-md max-w-md w-full">
