@@ -4,16 +4,20 @@ import os
 import pandas as pd
 import json
 
+# loading environment variables
 load_dotenv()
 
+# creating open ai client
 client = OpenAI(
     api_key=os.getenv("OPENAI_API_KEY")
 )
 
+# converts given knowledge base excel sheet to a text file
 def knowledge_base_to_text_file(filename):
     try:
-        # read the excel file
+        # read the excel file path
         file_path = os.path.join('uploads', filename)
+        # read excel sheet using pandas
         df = pd.ExcelFile(file_path)
         #  Specify the path for the text file
         text_file_path = 'uploads/knowledge_base.txt'
@@ -37,7 +41,7 @@ def knowledge_base_to_text_file(filename):
     except Exception as e:
         raise e
 
-
+# converts given example output excel sheet to a text file
 def example_output_to_text_file(filename):
     try:
         # read the excel file
@@ -66,9 +70,10 @@ def example_output_to_text_file(filename):
     except Exception as e:
         raise e
 
-
+# upload all necessary files for AI assistant
 def upload_file_openai():
     try:
+        # checking if required files exists or not
         if(os.path.exists("uploads/knowledge_base.txt") and 
         os.path.exists("uploads/example_output_data.txt") and 
         os.path.exists("uploads/output_json.txt") and 
@@ -100,6 +105,7 @@ def upload_file_openai():
     except Exception as e:
         raise e
 
+# improving the JSON data, on basis of instructions passed by the user
 def improveJSONData(instruction, json_data):
     response = client.chat.completions.create(
     model="gpt-4-1106-preview",
@@ -109,4 +115,5 @@ def improveJSONData(instruction, json_data):
                 {"role" :"user", "content" : f''' JSON Data is {json_data} & instruction given are {instruction}. Return a clean JSON output without anything extra attached to it.'''}
             ]
     )
+    # returning the response
     return response.choices[0].message.content

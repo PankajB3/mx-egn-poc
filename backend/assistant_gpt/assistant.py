@@ -9,6 +9,7 @@ client = OpenAI(
     api_key=os.getenv("OPENAI_API_KEY")
 )
 
+# defining our response template
 data = {
   "Shape": "",
   "Material": "",
@@ -28,11 +29,13 @@ data = {
   "Quantities": ""
 }
 
+#  defining example of response type, showcasing multiple objects
 ex_multiple_data = [{"Length":"25", "Width":"26", "Thickness":"27", "Material":"FR4"},{"Length":"25", "Width":"26", "Thickness":"27", "Material":"G10"}]
 
-
+# Following function deals mainly with creating prompt, assistant & checking task status
 def assistant_works(eml_file, data_file, ex_file, fdb_file, thread):
     try:
+      #  creating assistant
       assistant = client.beta.assistants.create(
           name="Smart Assistant",
           instructions=f'''
@@ -114,6 +117,7 @@ def assistant_works(eml_file, data_file, ex_file, fdb_file, thread):
           file_ids=[data_file.id, eml_file.id, ex_file.id, fdb_file.id]
           )
       
+      # creating message for assistant
       message = client.beta.threads.messages.create(
           thread_id=thread.id,
           role="user",
@@ -158,9 +162,7 @@ def assistant_works(eml_file, data_file, ex_file, fdb_file, thread):
       instructions = f''' The output should only contain the required Javascript Object & strictly no other statement should be there'''
       )    
 
-      # print("Assistant 149 run ====\n\n\n", message.json())
-      # print("Assistant 149 run ====\n\n\n", assistant.json())
-      # print("Assistant 149 run ====\n\n\n", run.json())
+      # checking if assistant has completed our given task
       while True:
         # wait until run completes
         while run.status in ['queued', 'in_progress']:
@@ -183,18 +185,19 @@ def assistant_works(eml_file, data_file, ex_file, fdb_file, thread):
         raise e
 
 
+# start_assistant helps in creating thread & passing necessary files to our assistant
 def start_assistant(eml_file, data_file, ex_file, fdb_file):
   try:
+    # creating assistant thread
     thread = client.beta.threads.create()
-    messages = assistant_works(eml_file, data_file, ex_file, fdb_file, thread)
-    print("\n\n===FINAL ANSWER===\n\n", messages)
+    # passing thread, & all necessary files for our assistant
+    messages = assistant_works(eml_file, data_file, ex_file, fdb_file, thread) 
     assistant_answer = []
 
-    # display assistant messages
+    # assistant messages
     for message in reversed(messages.data):
         if message.role == 'assistant':
           assistant_answer.append(message.content[0].text.value)
-        # print(message.role + " => " + message.content[0].text.value)
     return assistant_answer
   except Exception as e:
      raise e
