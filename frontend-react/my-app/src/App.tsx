@@ -87,6 +87,28 @@ function App() {
       }
   }
 
+ //@ts-ignore
+ const saveEmlDataToDB = async() =>{
+  try{
+      // console.log("Hello");
+      let res = await fetch('http://34.70.229.241/api/store_json',{
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json', // Specify the content type as JSON
+          },
+          body: JSON.stringify(emlData),
+      })
+      if(res.ok){
+          const result = await res.json(); // Await the result of res.json()
+          alert(result.message); 
+      }else{
+          alert("Data Failed to Stored Successsfully")
+      }
+  }catch(err){
+      alert(`Error : ${err}`)
+  }
+}
+
   // Form submission handler for updating JSON data
   //@ts-ignore
   const updateJSONFormHandler = async(event) => {
@@ -173,11 +195,17 @@ function App() {
                 Is the output correct?
               </div>
               <div className="flex justify-center lg:justify-between mt-2">
+              <button
+                  className="flex items-center justify-center bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-6 rounded"
+                  onClick={saveEmlDataToDB}
+                >
+                  Yes
+                </button>
                 <button
                   className="flex items-center justify-center bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-6 rounded"
                   onClick={setMyRedirect}
                 >
-                  Feedback
+                  No
                 </button>
               </div>
             </div>
