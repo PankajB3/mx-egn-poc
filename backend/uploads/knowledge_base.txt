@@ -1,0 +1,277 @@
+
+
+Sheet Name: Grade
+Unnamed: 0	Unnamed: 1	Unnamed: 2	Unnamed: 3	Unnamed: 4	Unnamed: 5	Unnamed: 6	Unnamed: 7	Unnamed: 8	Unnamed: 9	Unnamed: 10
+	PREFERRED INDEX									
+	NEMA No Dash	MIL	MIL ENDER	NEMA Dash	Common name	Resin Subtrate	Substrate Resin	Class	Colloquial	Brands
+	G9	MIL-I-24768/1	GME	G-9	Glass Melamine	Melamine Glass	Glass Melamine		Melamine	
+	G10	MIL-I-24768/2	GEE	G-10					Non brominated, no bromine, G10NB, NB Sheet	
+	G11	MIL-I-24768/3	GEB	G-11				Class F		
+	G11H			G-11-H				Class H		
+		MIL-I-24768/4	GPO-1							
+		MIL-I-24768/5	GPO-2							
+		MIL-I-24768/6	GPO-3			Polyester Glass	Glass Polyester		GPO	
+		MIL-I-24768/7	GTE							
+	G5	MIL-I-24768/8	GMG	G-5						
+	N1	MIL-I-24768/9	NPG	N-1						
+	XXX	MIL-I-24768/10	PBE							
+	XX	MIL-I-24768/11	PBG							
+	X	MIL-I-24768/12	PBM			Phenolic Paper	Paper Phenolic			
+	LE	MIL-I-24768/13	FBE			Phenolic Linen	Linen Phenolic			
+	CE	MIL-I-24768/14	FBG			Canvas Phenolic	Canvas Phenolic			
+	L	MIL-I-24768/15	FBI							
+	C	MIL-I-24768/16	FBM							Micarta
+	G7	MIL-I-24768/17	GSG	G-7		Glass Silicone	Silicone Glass			
+	G3	MIL-I-24768/18	GPG	G-3		Glass Phenolic	Phenolic Glass			Phenolglass
+	XP	MIL-I-24768/19	PBM-P							
+	XPC	MIL-I-24768/20	PBM-PC							
+	XXP	MIL-I-24768/21	PBG-P							
+	XXXP	MIL-I-24768/22	PBE-P							
+	XXXPC	MIL-I-24768/23	PBE-PC							
+	FR1	MIL-I-24768/24	PBM-PF	FR-1						
+	FR2	MIL-I-24768/25	PBM-PCF	FR-2						
+	FR3	MIL-I-24768/26	PEE	FR-3						
+	FR4	MIL-I-24768/27	GEE-F	FR-4	G10/FR4	Epoxy phenolic			Glass Lamiante	Garolite, NP510A
+	FR5	MIL-I-24768/28	GEB-F	FR-5						
+	CEM1	MIL-I-24768/29	CEM-1	CEM-1						
+	CEM3	MIL-I-24768/30	CEM-3	CEM-3						
+		MIL-I-24768/31	GPO-N-1P							
+		MIL-I-24768/32	GPO-N-2P							
+		MIL-I-24768/33	GPO-N-3P							
+
+
+Sheet Name: Shape
+Unnamed: 0	Unnamed: 1	Unnamed: 2	Unnamed: 3	Unnamed: 4	Unnamed: 5	Unnamed: 6	Unnamed: 7	Unnamed: 8	Unnamed: 9	Unnamed: 10
+	PREFERRED INDEX									
+	Rod	length	OD	Diameter	Dowel					
+	rod cut piece	pieces	OD	Diameter						
+	Cut Piece	pieces	anything dimensioned as a sheet but not the below dimensions							
+	Sheet	4 x 8	3 x 4	36 x 48	48 x 96	3 by 4	4 by 8	4 by 4	4 x 4	48 x 48
+	Tube	ID/OD	Inside diameter							
+
+
+Sheet Name: Thickness
+Unnamed: 0	Unnamed: 1	Unnamed: 2
+		0.01
+		0.012
+		0.015
+		0.018
+		0.02
+		0.025
+		0.031
+		0.04
+		0.047
+		0.05
+		0.062
+		0.07
+		0.078
+		0.093
+		0.125
+		0.135
+		0.156
+		0.187
+		0.25
+		0.281
+		0.312
+		0.343
+		0.375
+		0.406
+		0.437
+		0.468
+		0.5
+		0.55
+		0.562
+		0.612
+		0.625
+		0.675
+		0.75
+		0.8
+		0.875
+		0.95
+		1.0
+		1.1
+		1.125
+		1.25
+		1.35
+		1.375
+		1.475
+		1.5
+		1.6
+		1.625
+		1.75
+		1.85
+		1.875
+		2.0
+		2.1
+		2.25
+		2.5
+		2.625
+		3.0
+		3.25
+		3.5
+		4.0
+		4.25
+		4.5
+		5.0
+
+
+Sheet Name: Synonyms
+Synonym	Field	Correct Response
+G10/FR4	Material	FR4
+Phenolic	Material	CE
+G10	Material	G10 AND FR4
+G-10	Material	G10 AND FR4
+G10NB	Material	G10
+Non Bromine	Material	G10
+GME	Material	G9
+GEE	Material	G10
+GEB	Material	G11
+GMG	Material	G5
+NPG	Material	N1
+PBE	Material	XXX
+PBG	Material	XX
+PBM	Material	X
+FBE	Material	LE
+FBG	Material	CE
+FBI	Material	L
+FBM	Material	C
+GSG	Material	G7
+GPG	Material	G3
+PBM-P	Material	XP
+PBM-PC	Material	XPC
+PBG-P	Material	XXP
+PBE-P	Material	XXXP
+PBE-PC	Material	XXXPC
+GEE-F	Material	FR4
+GEB-F	Material	FR5
+GEEF	Material	FR4
+GEBF	Material	FR5
+MIL-I-24768/1	Material	G9
+MIL-I-24768/2	Material	G10
+MIL-I-24768/3	Material	G11
+MIL-I-24768/8	Material	G5
+MIL-I-24768/10	Material	XXX
+MIL-I-24768/11	Material	XX
+MIL-I-24768/12	Material	X
+MIL-I-24768/13	Material	LE
+MIL-I-24768/14	Material	CE
+MIL-I-24768/15	Material	L
+MIL-I-24768/16	Material	C
+MIL-I-24768/17	Material	G7
+MIL-I-24768/18	Material	G3
+MIL-I-24768/19	Material	XP
+MIL-I-24768/20	Material	XPC
+MIL-I-24768/21	Material	XXP
+MIL-I-24768/22	Material	XXXP
+MIL-I-24768/23	Material	XXXPC
+MIL-I-24768/27	Material	FR4
+MIL-I-24768/28	Material	FR5
+Melamine Glass	Material	G9
+Polyester Glass	Material	GPO3
+Phenolic Paper	Material	X
+Phenolic Linen	Material	LE
+Paper Phenolic	Material	X
+Canvas Phenolic	Material	CE
+phenolic canvas	Material	CE
+Linen phenolic	Material	LE
+C Grade	Material	C
+L Grade	Material	L
+Glass Silicone	Material	G7
+Glass Phenolic	Material	G3
+Epoxy phenolic	Material	FR4
+Class F	Material	G11
+Class H	Material	G11H
+Melamine	Material	G9
+non-halogen	Material	G10
+Non halogenated	Material	G10
+Non halogen	Material	G10
+no halogen	Material	G10
+non brominated	Material	G10
+NB Sheet	Material	G10
+G10 Cryo	Material	G10CR
+Cryo grade	Material	G10CR
+Micarta	Material	CE
+Garolite	Material	FR4
+NP510A	Material	FR4
+1/64	Thickness	0.016
+1/32	Thickness	0.031
+3/64	Thickness	0.047
+5/64	Thickness	0.078
+3/32	Thickness	0.094
+7/64	Thickness	0.109
+1/8	Thickness	0.125
+9/64	Thickness	0.141
+5/32	Thickness	0.156
+11/64	Thickness	0.172
+3/16	Thickness	0.188
+13/64	Thickness	0.203
+7/32	Thickness	0.219
+15/64	Thickness	0.234
+1/4	Thickness	0.25
+17/64	Thickness	0.266
+9/32	Thickness	0.281
+19/64	Thickness	0.297
+5/16	Thickness	0.313
+21/64	Thickness	0.328
+11/32	Thickness	0.344
+23/64	Thickness	0.359
+3/8	Thickness	0.375
+25/64	Thickness	0.547
+13/32	Thickness	0.406
+27/64	Thickness	0.422
+7/16	Thickness	0.438
+29/64	Thickness	0.453
+15/32	Thickness	0.469
+31/64	Thickness	0.484
+1/2	Thickness	0.5
+33/64	Thickness	0.516
+17/32	Thickness	0.531
+9/16	Thickness	0.563
+37/64	Thickness	0.578
+19/32	Thickness	0.594
+39/64	Thickness	0.609
+5/8	Thickness	0.625
+41/64	Thickness	0.641
+21/32	Thickness	0.656
+43/64	Thickness	0.672
+11/16	Thickness	0.688
+45/64	Thickness	0.703
+23/32	Thickness	0.719
+47/64	Thickness	0.734
+3/4	Thickness	0.75
+49/64	Thickness	0.766
+25/32	Thickness	0.781
+51/64	Thickness	0.797
+13/16	Thickness	0.813
+53/64	Thickness	0.828
+27/32	Thickness	0.844
+55/64	Thickness	0.859
+7/8	Thickness	0.875
+57/64	Thickness	0.891
+29/32	Thickness	0.906
+59/64	Thickness	0.922
+15/16	Thickness	0.938
+61/64	Thickness	0.953
+31/32	Thickness	0.969
+63/64	Thickness	0.984
+G-10 NB	Material	G10
+Non Bromine	Material	G10
+Non-bromine	Material	G10
+FR-4	Material	FR4
+G-9	Material	G9
+G-11	Material	G11
+G-5	Material	G5
+G-7	Material	G7
+G-3	Material	G3
+FR-5	Material	FR5
+random length	Length	"48"""
+standard length	length	"48"""
+Bar	shape	cut piece
+dowel	shape	rod
+Nat	color	Natural
+blk	color	black
+grn	color	green
+natu	color	Natural
+Ryertex 223 	Material	C
+Ryertex	Material	CE
+TBG	Shape	Tube
